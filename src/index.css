@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-linear-gradient-to-b {
+    background: linear-gradient(
+      to bottom,
+      rgba(121, 132, 147, 0.2),
+      rgba(130, 143, 163, 0.1),
+      rgba(130, 143, 163, 0)
+    );
+  }
+}
