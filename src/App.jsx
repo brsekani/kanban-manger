@@ -4,20 +4,20 @@ import Nav from "./components/Nav";
 import SideBar from "./components/SideBar";
 import Body from "./components/Body";
 import CreateNewBoard from "./components/CreateNewBoard";
+import AddNewTask from "./components/AddNewTask";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [showSideBar, SetShowSideBar] = useState(true);
-
-  const HandleSideBar = () => {
-    SetShowSideBar(!showSideBar);
-    console.log("yes");
-  };
+  const { createNewBoardOpen, createNewTaskOpen } = useSelector(
+    (state) => state.ui,
+  );
 
   return (
     <div className="h-[100vh] overflow-hidden ">
-      <Nav showSideBar={showSideBar} />
-      <Body showSideBar={showSideBar} HandleSideBar={HandleSideBar} />
-      {/* <CreateNewBoard /> */}
+      <Nav />
+      <Body />
+      {createNewBoardOpen && <CreateNewBoard />}
+      {createNewTaskOpen && <AddNewTask />}
     </div>
   );
 }

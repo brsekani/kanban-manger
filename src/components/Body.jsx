@@ -1,12 +1,18 @@
+import { useSelector } from "react-redux";
 import Board from "./Board";
 import SideBar from "./SideBar";
 
-function Body({ HandleSideBar, showSideBar }) {
+function Body() {
+  const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);
+
   return (
-    // <div className="flex w-full bg-[#20212c]">
-    <div className="w-fullbg-[#20212c] flex h-full ">
-      {showSideBar && <SideBar HandleSideBar={HandleSideBar} />}
-      <Board showSideBar={showSideBar} HandleSideBar={HandleSideBar} />
+    <div
+      className={`flex h-full w-full  ${
+        toggleBackground ? "" : "bg-[#2b2c37]"
+      } transition-all duration-500 ease-in-out`}
+    >
+      {isSideBarOpen && <SideBar />}
+      <Board />
     </div>
   );
 }
