@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ImCross } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
-import { closeCreateNewTask } from "../Ui/UiSlice";
+import { closeEditBoard } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 
 function CreateNewBoard() {
@@ -13,7 +13,7 @@ function CreateNewBoard() {
 
   const handleClickOutside = (event) => {
     if (myDivRef.current && !myDivRef.current.contains(event.target)) {
-      dispatch(closeCreateNewTask());
+      dispatch(closeEditBoard());
     }
   };
 
@@ -46,7 +46,7 @@ function CreateNewBoard() {
               toggleBackground ? "text-black " : "text-white"
             }   font-bold leading-6 `}
           >
-            Add New Task
+            Edit Board
           </h1>
 
           <div className="">
@@ -55,28 +55,13 @@ function CreateNewBoard() {
                 toggleBackground ? "text-[#828fa3] " : "text-white"
               } `}
             >
-              Title
+              Board Name
             </label>
             <input
               className={`pt-0.7  m-1 mt-1 h-10 w-full rounded border border-[#828FA340] ${
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
               }  p-4 text-sm font-bold text-white outline-none`}
               placeholder="e.g Web Development"
-            />
-          </div>
-
-          <div>
-            <label
-              className={`text-xs font-bold  ${
-                toggleBackground ? "text-[#828fa3] " : "text-white"
-              } `}
-            >
-              Description (optional)
-            </label>
-            <textarea
-              className={`m-1 mt-1 h-5 max-h-[112px]  min-h-[60px] w-full rounded border  border-[#828FA340] ${
-                toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-              }  p-4 pt-[0.7] text-sm font-bold text-white outline-none`}
             />
           </div>
 
@@ -87,10 +72,19 @@ function CreateNewBoard() {
                   toggleBackground ? "text-[#828fa3] " : "text-white"
                 } `}
               >
-                Subtasks
+                Board Columns
               </label>
             </div>
             <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-5 focus:outline-none">
+                <input
+                  className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
+                    toggleBackground ? "bg-white" : "bg-[#2b2c37]"
+                  } p-4 text-sm font-bold text-white outline-none`}
+                  placeholder="e.g Todo"
+                />
+                <ImCross color="#828FA340" />
+              </div>
               <div className="flex items-center gap-5 focus:outline-none">
                 <input
                   className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
@@ -107,22 +101,10 @@ function CreateNewBoard() {
               >
                 +Add New Column
               </button>
+              <button className="mt-2 h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white">
+                Create new Border
+              </button>
             </div>
-          </div>
-
-          <div className="flex flex-col items-center justify-center gap-6">
-            <div className="flex w-full flex-col items-start gap-1 focus:outline-none ">
-              <label className="text-xs font-bold text-white">Status</label>
-              <input
-                className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
-                  toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-                }   p-4 text-sm font-bold text-white outline-none`}
-                placeholder="e.g Todo"
-              />
-            </div>
-            <button className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white">
-              Create new Border
-            </button>
           </div>
         </motion.form>
       </div>

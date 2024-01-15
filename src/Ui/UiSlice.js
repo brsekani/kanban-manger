@@ -4,6 +4,7 @@ const initialState = {
   isSideBarOpen: true,
   createNewBoardOpen: false,
   createNewTaskOpen: false,
+  editBoardOpen: false,
   dropDownSettingOpen: false,
   toggleBackground: false,
 };
@@ -36,12 +37,24 @@ const UiSlice = createSlice({
       state.createNewTaskOpen = false;
     },
 
+    openEditBoard: (state) => {
+      state.editBoardOpen = true;
+    },
+
+    closeEditBoard: (state) => {
+      state.editBoardOpen = false;
+    },
+
     OpenDropDownSetting: (state) => {
       state.dropDownSettingOpen = true;
     },
 
     CloseDropDownSetting: (state) => {
       state.dropDownSettingOpen = false;
+    },
+
+    toggleDropDownSetting: (state) => {
+      state.dropDownSettingOpen = !state.dropDownSettingOpen;
     },
 
     toggleWhiteBackground: (state) => {
@@ -57,9 +70,12 @@ export const {
   closeCreateNewBoard,
   openCreateNewtask,
   closeCreateNewTask,
+  openEditBoard,
+  closeEditBoard,
   OpenDropDownSetting,
   CloseDropDownSetting,
   toggleWhiteBackground,
+  toggleDropDownSetting,
 } = UiSlice.actions;
 
 export default UiSlice.reducer;

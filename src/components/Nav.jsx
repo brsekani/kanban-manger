@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   CloseDropDownSetting,
-  OpenDropDownSetting,
+  toggleDropDownSetting,
   openCreateNewtask,
 } from "../Ui/UiSlice";
 import DropDownSetting from "./DropDownSetting";
@@ -80,7 +80,7 @@ function Nav() {
             <img
               className="cursor-pointer"
               src="src\assets\icon-vertical-ellipsis.svg"
-              onClick={() => dispatch(OpenDropDownSetting())}
+              onClick={() => dispatch(toggleDropDownSetting())}
             />
           </div>
         </div>

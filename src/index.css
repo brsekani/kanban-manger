@@ -15,6 +15,13 @@
   }
 }
 
+@layer components {
+  .selectedHeader {
+    background: #635fc7;
+  }
+}
+
+/* 
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -23,4 +30,4 @@
   to {
     opacity: 1;
   }
-}
+} */

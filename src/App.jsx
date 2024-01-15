@@ -5,10 +5,11 @@ import SideBar from "./components/SideBar";
 import Body from "./components/Body";
 import CreateNewBoard from "./components/CreateNewBoard";
 import AddNewTask from "./components/AddNewTask";
+import EditBoard from "./components/EditBoard";
 import { useSelector } from "react-redux";
 
 function App() {
-  const { createNewBoardOpen, createNewTaskOpen } = useSelector(
+  const { createNewBoardOpen, createNewTaskOpen, editBoardOpen } = useSelector(
     (state) => state.ui,
   );
 
@@ -18,6 +19,7 @@ function App() {
       <Body />
       {createNewBoardOpen && <CreateNewBoard />}
       {createNewTaskOpen && <AddNewTask />}
+      {editBoardOpen && <EditBoard />}
     </div>
   );
 }

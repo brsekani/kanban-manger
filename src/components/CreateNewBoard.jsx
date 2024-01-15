@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { ImCross } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCreateNewBoard } from "../Ui/UiSlice";
+import { motion } from "framer-motion";
 
 function CreateNewBoard() {
   const { toggleBackground } = useSelector((state) => state.ui);
@@ -30,10 +31,13 @@ function CreateNewBoard() {
         className="m-0 rounded-none from-transparent p-0 font-normal"
         ref={myDivRef}
       >
-        <form
+        <motion.form
           className={`lg:w-[calc(100vw -2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center gap-6 rounded-md ${
             toggleBackground ? "bg-white" : "bg-[#2b2c37]"
           }  p-6 md:w-[480px]`}
+          initial={{ y: "-100%", x: "-200px" }}
+          animate={toggleBackground ? { y: "-50%" } : { y: "-50%" }}
+          transition={{ duration: 0.5 }}
         >
           <h1
             className={`text-[1.125rem] font-bold leading-6 ${
@@ -46,7 +50,7 @@ function CreateNewBoard() {
           <div className="">
             <label
               className={`text-xs font-bold ${
-                toggleBackground ? "text-[#828fa3] " : "text-white"
+                toggleBackground ? "text-[#828fa3]  " : "text-white"
               } `}
             >
               Board Name
@@ -113,7 +117,7 @@ function CreateNewBoard() {
               Create new Border
             </button>
           </div>
-        </form>
+        </motion.form>
       </div>
     </div>
   );
