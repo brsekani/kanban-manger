@@ -7,6 +7,7 @@ const initialState = {
   editBoardOpen: false,
   dropDownSettingOpen: false,
   toggleBackground: false,
+  TaskPreviewOpen: false,
 };
 
 const UiSlice = createSlice({
@@ -45,6 +46,14 @@ const UiSlice = createSlice({
       state.editBoardOpen = false;
     },
 
+    openTaskPreview: (state) => {
+      state.TaskPreviewOpen = true;
+    },
+
+    closeTaskPreview: (state) => {
+      state.TaskPreviewOpen = false;
+    },
+
     OpenDropDownSetting: (state) => {
       state.dropDownSettingOpen = true;
     },
@@ -72,6 +81,8 @@ export const {
   closeCreateNewTask,
   openEditBoard,
   closeEditBoard,
+  openTaskPreview,
+  closeTaskPreview,
   OpenDropDownSetting,
   CloseDropDownSetting,
   toggleWhiteBackground,

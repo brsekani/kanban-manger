@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ImCross } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCreateNewTask } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 
 function CreateNewBoard() {
+  const [subTasks, setSubTasks] = useState([""]);
   const myDivRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -24,6 +25,26 @@ function CreateNewBoard() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dispatch]);
+
+  //Add SubTask
+  const addInput = (e) => {
+    e.preventDefault();
+    setSubTasks([...subTasks, ""]);
+  };
+
+  // Remove SubTask
+  const removeInput = (index) => {
+    const newSubTask = [...subTasks];
+    newSubTask.splice(index, 1);
+    setSubTasks(newSubTask);
+  };
+
+  // Handlde SubTask
+  const handleinputChange = (index, value) => {
+    const newSubTasks = [...subTasks];
+    newSubTasks[index] = value;
+    setSubTasks(newSubTasks);
+  };
 
   return (
     <div
@@ -91,19 +112,31 @@ function CreateNewBoard() {
               </label>
             </div>
             <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-5 focus:outline-none">
-                <input
-                  className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
-                    toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-                  } p-4 text-sm font-bold text-white outline-none`}
-                  placeholder="e.g Todo"
-                />
-                <ImCross color="#828FA340" />
-              </div>
+              {subTasks.map((input, index) => (
+                <div
+                  className="flex items-center gap-5 focus:outline-none"
+                  key={index}
+                >
+                  <input
+                    className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
+                      toggleBackground ? "bg-white" : "bg-[#2b2c37]"
+                    } p-4 text-sm font-bold text-white outline-none`}
+                    placeholder="e.g Todo"
+                    value={input}
+                    onChange={(e) => handleinputChange(index, e.target.value)}
+                  />
+                  <ImCross
+                    className="cursor-pointer"
+                    color="#828FA340"
+                    onClick={() => removeInput(index)}
+                  />
+                </div>
+              ))}
               <button
                 className={`h-10 w-full rounded-[20px] ${
                   toggleBackground ? "bg-[#625fc721]" : "bg-white"
                 }  font-bold text-[#635fc7]`}
+                onClick={addInput}
               >
                 +Add New Column
               </button>

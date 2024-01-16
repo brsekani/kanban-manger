@@ -7,11 +7,15 @@ import CreateNewBoard from "./components/CreateNewBoard";
 import AddNewTask from "./components/AddNewTask";
 import EditBoard from "./components/EditBoard";
 import { useSelector } from "react-redux";
+import TaskPreview from "./components/TaskPreview";
 
 function App() {
-  const { createNewBoardOpen, createNewTaskOpen, editBoardOpen } = useSelector(
-    (state) => state.ui,
-  );
+  const {
+    createNewBoardOpen,
+    createNewTaskOpen,
+    editBoardOpen,
+    TaskPreviewOpen,
+  } = useSelector((state) => state.ui);
 
   return (
     <div className="h-[100vh] overflow-hidden ">
@@ -20,6 +24,7 @@ function App() {
       {createNewBoardOpen && <CreateNewBoard />}
       {createNewTaskOpen && <AddNewTask />}
       {editBoardOpen && <EditBoard />}
+      {TaskPreviewOpen && <TaskPreview />}
     </div>
   );
 }

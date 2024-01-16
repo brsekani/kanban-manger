@@ -1,10 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ImCross } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCreateNewBoard } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 
 function CreateNewBoard() {
+  const [boardColumns, setBoardColumns] = useState([""]);
+
   const { toggleBackground } = useSelector((state) => state.ui);
 
   const myDivRef = useRef(null);
@@ -24,6 +26,26 @@ function CreateNewBoard() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dispatch]);
+
+  //Add Board Column
+  const addInput = (e) => {
+    e.preventDefault();
+    setBoardColumns([...boardColumns, ""]);
+  };
+
+  // Remove Board Column
+  const removeInput = (index) => {
+    const newBoardColumns = [...boardColumns];
+    newBoardColumns.splice(index, 1);
+    setBoardColumns(newBoardColumns);
+  };
+
+  // Handlde Board Column
+  const handleinputChange = (index, value) => {
+    const newBoardColumns = [...boardColumns];
+    newBoardColumns[index] = value;
+    setBoardColumns(newBoardColumns);
+  };
 
   return (
     <div className="absolute left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)]">
@@ -77,31 +99,29 @@ function CreateNewBoard() {
               </label>
             </div>
             <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-5 focus:outline-none">
-                <input
-                  className={`pt-0.7 h-10 w-full ${
-                    toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-                  } ${
-                    toggleBackground ? "text-black" : "text-white"
-                  } rounded border border-[#828FA340] bg-[#2b2c37] p-4 text-sm font-bold outline-none`}
-                  placeholder="e.g Todo"
-                  defaultValue="Todo"
-                />
-                <ImCross color="#828FA340" />
-              </div>
-
-              <div className="flex items-center gap-5 focus:outline-none ">
-                <input
-                  className={`pt-0.7 h-10 w-full ${
-                    toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-                  } ${
-                    toggleBackground ? "text-black" : "text-white"
-                  }  rounded border border-[#828FA340] bg-[#2b2c37]  p-4 text-sm font-bold  outline-none`}
-                  placeholder="e.g Todo"
-                  defaultValue="Doing"
-                />
-                <ImCross color="#828FA340" />
-              </div>
+              {boardColumns.map((boardColumn, index) => (
+                <div
+                  className="flex items-center gap-5 focus:outline-none"
+                  key={index}
+                >
+                  <input
+                    onChange={(e) => handleinputChange(index, e.target.value)}
+                    value={boardColumn}
+                    className={`pt-0.7 h-10 w-full ${
+                      toggleBackground ? "bg-white" : "bg-[#2b2c37]"
+                    } ${
+                      toggleBackground ? "text-black" : "text-white"
+                    } rounded border border-[#828FA340] bg-[#2b2c37] p-4 text-sm font-bold outline-none`}
+                    placeholder="e.g Todo"
+                    defaultValue="Todo"
+                  />
+                  <ImCross
+                    className="cursor-pointer"
+                    onClick={() => removeInput(index)}
+                    color="#828FA340"
+                  />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -110,6 +130,7 @@ function CreateNewBoard() {
               className={`h-10 w-full rounded-[20px] ${
                 toggleBackground ? "bg-[#625fc721]" : "bg-white"
               }  font-bold text-[#635fc7]`}
+              onClick={(e) => addInput(e)}
             >
               +Add New Column
             </button>
