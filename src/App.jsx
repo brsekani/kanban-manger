@@ -8,6 +8,7 @@ import AddNewTask from "./components/AddNewTask";
 import EditBoard from "./components/EditBoard";
 import { useSelector } from "react-redux";
 import TaskPreview from "./components/TaskPreview";
+import DeleteTask from "./components/DeleteTask";
 
 function App() {
   const {
@@ -15,6 +16,7 @@ function App() {
     createNewTaskOpen,
     editBoardOpen,
     TaskPreviewOpen,
+    DeleteTaskOpen,
   } = useSelector((state) => state.ui);
 
   return (
@@ -25,6 +27,7 @@ function App() {
       {createNewTaskOpen && <AddNewTask />}
       {editBoardOpen && <EditBoard />}
       {TaskPreviewOpen && <TaskPreview />}
+      {DeleteTaskOpen && <DeleteTask />}
     </div>
   );
 }

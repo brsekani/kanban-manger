@@ -27,6 +27,7 @@ function TaskBody() {
         className={`flex h-[110px] w-[280px] flex-col justify-center gap-1 rounded-2xl ${
           toggleBackground ? "bg-white" : "bg-[#2B2C37]"
         }  cursor-pointer px-4 py-5 shadow-md shadow-[#364e7e1a] transition-all duration-500 ease-in-out`}
+        onClick={() => dispatch(openTaskPreview())}
       >
         <h1
           className={`line-clamp-3 break-words text-[.9375rem]  font-bold hover:text-[#635fc7]  ${

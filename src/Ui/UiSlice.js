@@ -8,6 +8,9 @@ const initialState = {
   dropDownSettingOpen: false,
   toggleBackground: false,
   TaskPreviewOpen: false,
+  DropDownCurrentStatus: false,
+  DropDownEditAndDelete: false,
+  DeleteTaskOpen: false,
 };
 
 const UiSlice = createSlice({
@@ -69,6 +72,38 @@ const UiSlice = createSlice({
     toggleWhiteBackground: (state) => {
       state.toggleBackground = !state.toggleBackground;
     },
+
+    openDropDownCurrentStatus: (state) => {
+      state.DropDownCurrentStatus = true;
+    },
+
+    closeDropDownCurrentStatus: (state) => {
+      state.DropDownCurrentStatus = false;
+    },
+
+    toggleDropDownCurrentStatus: (state) => {
+      state.DropDownCurrentStatus = !state.DropDownCurrentStatus;
+    },
+
+    openDropDownEditAndDelete: (state) => {
+      state.DropDownEditAndDelete = true;
+    },
+
+    closeDropDownEditAndDelete: (state) => {
+      state.DropDownEditAndDelete = false;
+    },
+
+    toggleDropDownEditAndDelete: (state) => {
+      state.DropDownEditAndDelete = !state.DropDownEditAndDelete;
+    },
+
+    openDeleteTask: (state) => {
+      state.DeleteTaskOpen = true;
+    },
+
+    closeDeleteTask: (state) => {
+      state.DeleteTaskOpen = false;
+    },
   },
 });
 
@@ -87,6 +122,14 @@ export const {
   CloseDropDownSetting,
   toggleWhiteBackground,
   toggleDropDownSetting,
+  openDropDownCurrentStatus,
+  closeDropDownCurrentStatus,
+  toggleDropDownCurrentStatus,
+  openDropDownEditAndDelete,
+  closeDropDownEditAndDelete,
+  toggleDropDownEditAndDelete,
+  openDeleteTask,
+  closeDeleteTask,
 } = UiSlice.actions;
 
 export default UiSlice.reducer;
