@@ -8,6 +8,7 @@ import {
   toggleDropDownEditAndDelete,
   closeDropDownEditAndDelete,
   openDeleteTask,
+  openEditTask,
 } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 
@@ -100,7 +101,16 @@ function TaskPreview() {
                       : "border-[#20212C] bg-[#20212C]"
                   }  p-4 `}
                 >
-                  <button className="  text-[#828fa3] hover:text-[#5e6774] ">
+                  <button
+                    className="  text-[#828fa3] hover:text-[#5e6774] "
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(openEditTask());
+                      dispatch(closeTaskPreview());
+                      dispatch(closeDropDownEditAndDelete());
+                      dispatch(closeDropDownCurrentStatus());
+                    }}
+                  >
                     Edit task
                   </button>
                   <button

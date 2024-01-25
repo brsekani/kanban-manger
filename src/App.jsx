@@ -9,6 +9,11 @@ import EditBoard from "./components/EditBoard";
 import { useSelector } from "react-redux";
 import TaskPreview from "./components/TaskPreview";
 import DeleteTask from "./components/DeleteTask";
+import EditTask from "./components/EditTask";
+import DeleteBoard from "./components/DeleteBoard";
+import ClearBoard from "./components/clearBoard";
+import ResetBoard from "./components/ResetBoard";
+import AddNewColumn from "./components/AddNewColumn";
 
 function App() {
   const {
@@ -17,6 +22,11 @@ function App() {
     editBoardOpen,
     TaskPreviewOpen,
     DeleteTaskOpen,
+    editTaskOpen,
+    DeleteBoardOpen,
+    ClearBoardOpen,
+    ResetBoardOpen,
+    addNewColumnOpen,
   } = useSelector((state) => state.ui);
 
   return (
@@ -28,6 +38,11 @@ function App() {
       {editBoardOpen && <EditBoard />}
       {TaskPreviewOpen && <TaskPreview />}
       {DeleteTaskOpen && <DeleteTask />}
+      {editTaskOpen && <EditTask />}
+      {DeleteBoardOpen && <DeleteBoard />}
+      {ClearBoardOpen && <ClearBoard />}
+      {ResetBoardOpen && <ResetBoard />}
+      {addNewColumnOpen && <AddNewColumn />}
     </div>
   );
 }

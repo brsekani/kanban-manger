@@ -1,26 +1,18 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  closeTaskPreview,
-  toggleDropDownCurrentStatus,
-  closeDropDownCurrentStatus,
-  toggleDropDownEditAndDelete,
-  closeDropDownEditAndDelete,
-  closeDeleteTask,
-} from "../Ui/UiSlice";
+import { closeDeleteBoard } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 
-function DeleteTask() {
+function DeleteBoard() {
   const myDivRef = useRef(null);
 
   const dispatch = useDispatch();
 
-  const { toggleBackground, DropDownCurrentStatus, DropDownEditAndDelete } =
-    useSelector((state) => state.ui);
+  const { toggleBackground } = useSelector((state) => state.ui);
 
   const handleClickOutside = (event) => {
     if (myDivRef.current && !myDivRef.current.contains(event.target)) {
-      dispatch(closeDeleteTask());
+      dispatch(closeDeleteBoard());
     }
   };
 
@@ -47,12 +39,11 @@ function DeleteTask() {
       >
         <div className="flex flex-col gap-5">
           <h1 className="text-[1.125rem] font-bold text-[#ea5555]">
-            Delete this task?
+            Delete this Board?
           </h1>
           <p className="text-[0.8125rem] font-medium text-[#828fa3]">
-            Are you sure you want to delete the 'Review results of usability
-            tests and iterate' board? This action will remove all columns and
-            tasks and cannot be reversed
+            Are you sure you want to delete the "Example Board 3" board? This
+            action will remove all columns and tasks and cannot be reversed.
           </p>
 
           <div className="flex items-center gap-4">
@@ -65,7 +56,7 @@ function DeleteTask() {
               } text-[0.8125rem] font-bold text-[#635fc7]`}
               onClick={(e) => {
                 e.preventDefault();
-                dispatch(closeDeleteTask());
+                dispatch(closeDeleteBoard());
               }}
             >
               Cancel
@@ -77,4 +68,4 @@ function DeleteTask() {
   );
 }
 
-export default DeleteTask;
+export default DeleteBoard;

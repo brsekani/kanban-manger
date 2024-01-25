@@ -2,10 +2,10 @@ import { IoMdEye } from "react-icons/io";
 import { FaCircle } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { openSideBar } from "../Ui/UiSlice";
-import { openEditBoard } from "../Ui/UiSlice";
+import { openAddNewColumn } from "../Ui/UiSlice";
 import TaskHeader from "./TaskHeader";
 import TaskBody from "./TaskBody";
-import AddNewColumn from "./AddNewColumn";
+import AddNewColumnBtn from "./AddNewColumnBtn";
 import data from "../assets/data.json";
 
 function Board() {
@@ -38,9 +38,9 @@ function Board() {
 
           <button
             className="bg-linear-gradient-to-b mt-12 flex h-full w-[280px] items-center justify-center rounded-md font-bold"
-            onClick={() => dispatch(openEditBoard())}
+            onClick={() => dispatch(openAddNewColumn())}
           >
-            <AddNewColumn />
+            <AddNewColumnBtn />
           </button>
         </div>
       </div>

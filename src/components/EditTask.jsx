@@ -1,27 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { ImCross } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  closeCreateNewTask,
-  closeDropDownCurrentStatus,
-  toggleDropDownCurrentStatus,
-} from "../Ui/UiSlice";
+import { closeEditTask } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 
-function CreateNewBoard() {
+function EditTask() {
   const [subTasks, setSubTasks] = useState([""]);
   const myDivRef = useRef(null);
 
   const dispatch = useDispatch();
 
-  const { toggleBackground, DropDownCurrentStatus } = useSelector(
-    (state) => state.ui,
-  );
+  const { toggleBackground } = useSelector((state) => state.ui);
 
   const handleClickOutside = (event) => {
     if (myDivRef.current && !myDivRef.current.contains(event.target)) {
-      dispatch(closeCreateNewTask());
-      dispatch(closeDropDownCurrentStatus());
+      dispatch(closeEditTask());
     }
   };
 
@@ -53,9 +46,6 @@ function CreateNewBoard() {
     setSubTasks(newSubTasks);
   };
 
-  // stating current status
-  const [currentStatus, setCurrentStatus] = useState("");
-
   return (
     <div
       className={`absolute left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)]  `}
@@ -77,7 +67,7 @@ function CreateNewBoard() {
               toggleBackground ? "text-black " : "text-white"
             }   font-bold leading-6 `}
           >
-            Add New Task
+            Edit Task
           </h1>
 
           <div className="">
@@ -154,88 +144,15 @@ function CreateNewBoard() {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-6">
-            <div className="relative flex w-full flex-col gap-0.5">
-              <label
-                className={`mb-2 text-[.75rem] font-bold ${
-                  toggleBackground ? "text-[#828fa3]" : "text-white"
-                }`}
-              >
-                Current Status
-              </label>
-
-              <div>
-                <button
-                  className="flex h-9 w-full cursor-pointer items-center justify-between rounded-md border-[0.1px] border-solid border-[rgba-130-143-163-40] bg-transparent px-4 outline-none"
-                  onClick={(e) => {
-                    e.preventDefault(); // Prevent the event from reaching the document
-                    dispatch(toggleDropDownCurrentStatus());
-                  }}
-                >
-                  <span
-                    className={`text-[.8125rem] ${
-                      toggleBackground ? "text-[#828fa3]" : "text-white"
-                    } `}
-                  >
-                    {currentStatus}
-                  </span>
-                  <img src="src\assets\icon-chevron-up.svg" alt="" />
-                </button>
-              </div>
-
-              {DropDownCurrentStatus && (
-                <motion.div
-                  className={`md:max-h-1/4 lg:max-h-1/5 xl:max-h-1/6 scrollbar-hide absolute top-[110%] mt-2  flex h-[15vh] max-h-[70px] w-full flex-col gap-2 overflow-y-scroll  rounded-lg ${
-                    toggleBackground ? "bg-white" : "bg-[#2b2c37] "
-                  } p-4 text-[#828fa3] shadow-md ring ring-blue-500 ring-opacity-10`}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                >
-                  <div
-                    className={`cursor-pointer text-[.8125rem] ${
-                      toggleBackground
-                        ? "hover:font-bold hover:text-black"
-                        : "hover:font-bold hover:text-white"
-                    } hover:font-bold hover:text-white`}
-                    onClick={(e) => {
-                      setCurrentStatus(e.target.innerHTML);
-                      dispatch(closeDropDownCurrentStatus());
-                    }}
-                  >
-                    a
-                  </div>
-
-                  <div
-                    className={`cursor-pointer text-[.8125rem] ${
-                      toggleBackground
-                        ? "hover:font-bold hover:text-black"
-                        : "hover:font-bold hover:text-white"
-                    } hover:font-bold hover:text-white`}
-                    onClick={(e) => {
-                      setCurrentStatus(e.target.innerHTML);
-                      dispatch(closeDropDownCurrentStatus());
-                    }}
-                  >
-                    c
-                  </div>
-
-                  <div
-                    className={`cursor-pointer text-[.8125rem] ${
-                      toggleBackground
-                        ? "hover:font-bold hover:text-black"
-                        : "hover:font-bold hover:text-white"
-                    } hover:font-bold hover:text-white`}
-                    onClick={(e) => {
-                      setCurrentStatus(e.target.innerHTML);
-                      dispatch(closeDropDownCurrentStatus());
-                    }}
-                  >
-                    b
-                  </div>
-                </motion.div>
-              )}
+            <div className="flex w-full flex-col items-start gap-1 focus:outline-none ">
+              <label className="text-xs font-bold text-white">Status</label>
+              <input
+                className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
+                  toggleBackground ? "bg-white" : "bg-[#2b2c37]"
+                }   p-4 text-sm font-bold text-white outline-none`}
+                placeholder="e.g Todo"
+              />
             </div>
-
             <button className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white">
               Create new Border
             </button>
@@ -246,4 +163,4 @@ function CreateNewBoard() {
   );
 }
 
-export default CreateNewBoard;
+export default EditTask;

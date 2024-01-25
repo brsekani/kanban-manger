@@ -11,6 +11,11 @@ const initialState = {
   DropDownCurrentStatus: false,
   DropDownEditAndDelete: false,
   DeleteTaskOpen: false,
+  DeleteBoardOpen: false,
+  ClearBoardOpen: false,
+  ResetBoardOpen: false,
+  editTaskOpen: false,
+  addNewColumnOpen: false,
 };
 
 const UiSlice = createSlice({
@@ -104,6 +109,46 @@ const UiSlice = createSlice({
     closeDeleteTask: (state) => {
       state.DeleteTaskOpen = false;
     },
+
+    openDeleteBoard: (state) => {
+      state.DeleteBoardOpen = true;
+    },
+
+    closeDeleteBoard: (state) => {
+      state.DeleteBoardOpen = false;
+    },
+
+    openClearBoard: (state) => {
+      state.ClearBoardOpen = true;
+    },
+
+    closeClearBoard: (state) => {
+      state.ClearBoardOpen = false;
+    },
+
+    openResetBoard: (state) => {
+      state.ResetBoardOpen = true;
+    },
+
+    closeResetBoard: (state) => {
+      state.ResetBoardOpen = false;
+    },
+
+    openEditTask: (state) => {
+      state.editTaskOpen = true;
+    },
+
+    closeEditTask: (state) => {
+      state.editTaskOpen = false;
+    },
+
+    openAddNewColumn: (state) => {
+      state.addNewColumnOpen = true;
+    },
+
+    closeAddNewColumn: (state) => {
+      state.addNewColumnOpen = false;
+    },
   },
 });
 
@@ -130,6 +175,16 @@ export const {
   toggleDropDownEditAndDelete,
   openDeleteTask,
   closeDeleteTask,
+  openEditTask,
+  closeEditTask,
+  openDeleteBoard,
+  closeDeleteBoard,
+  openClearBoard,
+  closeClearBoard,
+  openResetBoard,
+  closeResetBoard,
+  openAddNewColumn,
+  closeAddNewColumn,
 } = UiSlice.actions;
 
 export default UiSlice.reducer;
