@@ -125,7 +125,7 @@ function CreateNewBoard() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-6">
+          <div className="flex flex-col items-center justify-center gap-4">
             <button
               className={`h-10 w-full rounded-[20px] ${
                 toggleBackground ? "bg-[#625fc721]" : "bg-white"

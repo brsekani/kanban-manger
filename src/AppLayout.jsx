@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import Board from "./components/Board/Board";
 import SideBar from "./components/SideBar/SideBar";
 
-function Body() {
+function AppLayout() {
   // const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);
 
   return (
@@ -15,4 +15,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default AppLayout;

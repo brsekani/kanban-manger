@@ -30,11 +30,11 @@ function Nav() {
   }, [dispatch]);
 
   return (
-    <div ref={myDivRef}>
+    <div className="transition-all duration-500 ease-in-out" ref={myDivRef}>
       <nav
         className={`flex h-20  w-full items-center ${
           toggleBackground ? "" : "bg-[#2b2c37]"
-        } text-white transition-all duration-500`}
+        } text-white transition-all duration-500 ease-in-out`}
       >
         {/* <nav className={`flex h-20  w-full items-center bg-[#2b2c37] text-white`}> */}
         <div className="flex items-center justify-between">
@@ -43,7 +43,7 @@ function Nav() {
               !isSideBarOpen ? "border-b-[1.5px]" : ""
             }  border-r-[1.5px] ${
               toggleBackground ? "border-[#e4ebfa]" : "border-[#3E3F4E]"
-            }  py-[27px]`}
+            }  py-[27px] transition-all duration-500 ease-in-out`}
           >
             {toggleBackground ? (
               <img
@@ -61,7 +61,7 @@ function Nav() {
         <div
           className={`flex h-full w-full items-center justify-between border-b-[1.5px]  ${
             toggleBackground ? "border-[#e4ebfa]" : "border-[#3E3F4E]"
-          } px-8`}
+          } px-8 transition-all duration-500 ease-in-out`}
         >
           <h1
             className={`cursor-pointer font-primary text-2xl font-bold ${
