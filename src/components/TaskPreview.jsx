@@ -193,7 +193,7 @@ function TaskPreview() {
               </button>
               {DropDownCurrentStatus && (
                 <motion.div
-                  className={`md:max-h-1/4 lg:max-h-1/5 xl:max-h-1/6 scrollbar-hide absolute top-[100%] mt-2  flex h-[15vh] max-h-[200px] w-full flex-col gap-2 overflow-y-scroll  rounded-lg ${
+                  className={`md:max-h-1/4 lg:max-h-1/5 xl:max-h-1/6 scroll-container absolute top-[100%] mt-2  flex h-[15vh] max-h-[200px] w-full flex-col gap-2 overflow-y-scroll  rounded-lg ${
                     toggleBackground ? "bg-white" : "bg-[#2b2c37]"
                   } p-4 text-[#828fa3] shadow-md`}
                   initial={{ opacity: 0, y: -10 }}

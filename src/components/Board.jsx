@@ -14,9 +14,9 @@ function Board() {
 
   return (
     <div
-      className={`flex w-full overflow-scroll  ${
+      className={`flex h-full w-full overflow-x-auto ${
         toggleBackground ? "bg-[#f4f7fd]" : "bg-[#20212c]"
-      } transition-all duration-500 ease-in-out`}
+      } no-scrollbar transition-all duration-500 ease-in-out`}
     >
       {!isSideBarOpen && (
         <button className="" onClick={() => dispatch(openSideBar())}>
@@ -28,9 +28,19 @@ function Board() {
         </button>
       )}
 
-      <div className="h-full">
+      <div className="h-full ">
         <div className=" flex h-full gap-8 px-8 py-6 ">
           {/* {console.log(column)} */}
+          <div className="">
+            <TaskHeader />
+            <TaskBody />
+          </div>
+
+          <div className="">
+            <TaskHeader />
+            <TaskBody />
+          </div>
+
           <div className="">
             <TaskHeader />
             <TaskBody />

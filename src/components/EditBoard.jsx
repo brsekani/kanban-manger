@@ -86,7 +86,7 @@ function EditBoard() {
             />
           </div>
 
-          <div className="mb-1 flex flex-col">
+          <div className="scroll-container mb-1 flex max-h-52 flex-col">
             <div className="mb-1">
               <label
                 className={`text-xs font-bold  ${
@@ -112,25 +112,26 @@ function EditBoard() {
                     onChange={(e) => handleinputChange(index, e.target.value)}
                   />
                   <ImCross
-                    className="cursor-pointer"
+                    className="mr-3 cursor-pointer"
                     color="#828FA340"
                     onClick={() => removeInput(index)}
                   />
                 </div>
               ))}
-
-              <button
-                className={`h-10 w-full rounded-[20px] ${
-                  toggleBackground ? "bg-[#625fc721]" : "bg-white"
-                }  font-bold text-[#635fc7]`}
-                onClick={(e) => addInput(e)}
-              >
-                +Add New Column
-              </button>
-              <button className="mt-2 h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white">
-                Save Changes
-              </button>
             </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            <button
+              className={`h-10 w-full rounded-[20px] ${
+                toggleBackground ? "bg-[#625fc721]" : "bg-white"
+              }  font-bold text-[#635fc7]`}
+              onClick={(e) => addInput(e)}
+            >
+              +Add New Column
+            </button>
+            <button className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white">
+              Save Changes
+            </button>
           </div>
         </motion.form>
       </div>

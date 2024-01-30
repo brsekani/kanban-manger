@@ -98,7 +98,7 @@ function CreateNewBoard() {
                 Board Columns
               </label>
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="scroll-container flex max-h-52 flex-col gap-3 overflow-auto">
               {boardColumns.map((boardColumn, index) => (
                 <div
                   className="flex items-center gap-5 focus:outline-none"
@@ -116,7 +116,7 @@ function CreateNewBoard() {
                     defaultValue="Todo"
                   />
                   <ImCross
-                    className="cursor-pointer"
+                    className="mr-3 cursor-pointer"
                     onClick={() => removeInput(index)}
                     color="#828FA340"
                   />
@@ -132,7 +132,7 @@ function CreateNewBoard() {
               }  font-bold text-[#635fc7]`}
               onClick={(e) => addInput(e)}
             >
-              +Add New Column
+              + Add New Column
             </button>
             <button className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white">
               Create new Border
