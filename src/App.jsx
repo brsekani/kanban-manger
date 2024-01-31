@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
+
 import Board from "./components/Board";
 import Nav from "./components/Nav";
 import SideBar from "./components/SideBar";
 import Body from "./components/Body";
-import CreateNewBoard from "./components/CreateNewBoard";
-import AddNewTask from "./components/AddNewTask";
-import EditBoard from "./components/EditBoard";
-import { useSelector } from "react-redux";
-import TaskPreview from "./components/TaskPreview";
-import DeleteTask from "./components/DeleteTask";
-import EditTask from "./components/EditTask";
-import DeleteBoard from "./components/DeleteBoard";
-import ClearBoard from "./components/clearBoard";
-import ResetBoard from "./components/ResetBoard";
-import AddNewColumn from "./components/AddNewColumn";
+import CreateNewBoard from "./modals/CreateNewBoard";
+import AddNewTask from "./modals/AddNewTask";
+import EditBoard from "./modals/EditBoard";
+import TaskPreview from "./modals/TaskPreview";
+import DeleteTask from "./modals/DeleteTask";
+import EditTask from "./modals/EditTask";
+import DeleteBoard from "./modals/DeleteBoard";
+import ClearBoard from "./modals/ClearBoard";
+import ResetBoard from "./modals/ResetBoard";
+import AddNewColumn from "./modals/AddNewColumn";
 
 function App() {
   const {

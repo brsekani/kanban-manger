@@ -3,9 +3,9 @@ import { FaCircle } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { openSideBar } from "../Ui/UiSlice";
 import { openAddNewColumn } from "../Ui/UiSlice";
-import TaskHeader from "./TaskHeader";
-import TaskBody from "./TaskBody";
-import AddNewColumnBtn from "./AddNewColumnBtn";
+import TaskHeader from "../Ui/TaskHeader";
+import TaskBody from "../Ui/TaskBody";
+import AddNewColumnBtn from "../Ui/AddNewColumnBtn";
 import data from "../assets/data.json";
 
 function Board() {
