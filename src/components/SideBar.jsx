@@ -1,7 +1,6 @@
 import { FaRegEyeSlash } from "react-icons/fa";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { IoIosSunny } from "react-icons/io";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeSideBar,

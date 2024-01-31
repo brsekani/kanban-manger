@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Board from "./components/Board";
 import Nav from "./components/Nav";
 import SideBar from "./components/SideBar";
-import Body from "./components/Body";
+import Body from "./AppLayout";
 import CreateNewBoard from "./modals/CreateNewBoard";
 import AddNewTask from "./modals/AddNewTask";
 import EditBoard from "./modals/EditBoard";

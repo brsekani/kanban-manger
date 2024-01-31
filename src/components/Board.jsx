@@ -30,21 +30,13 @@ function Board() {
 
       <div className="h-full ">
         <div className=" flex h-full gap-8 px-8 py-6 ">
-          {/* {console.log(column)} */}
-          <div className="">
-            <TaskHeader />
-            <TaskBody />
-          </div>
-
-          <div className="">
-            <TaskHeader />
-            <TaskBody />
-          </div>
-
-          <div className="">
-            <TaskHeader />
-            <TaskBody />
-          </div>
+          {/* Columns */}
+          {data.boards[0].columns.map((column) => (
+            <div className="">
+              <TaskHeader column={column} />
+              <TaskBody column={column} />
+            </div>
+          ))}
 
           <button
             className="bg-linear-gradient-to-b mt-12 flex h-full w-[280px] items-center justify-center rounded-md font-bold"
