@@ -10,11 +10,10 @@ import {
   openDeleteTask,
   openEditTask,
 } from "../Ui/UiSlice";
-import { motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 
 function TaskPreview() {
-  const [inputs, setInputs] = useState([""]);
-
+  const [inputs, setInputs] = useState();
   const myDivRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -30,6 +29,9 @@ function TaskPreview() {
     .at(0)
     .tasks.at(ClickedTaskIndex);
   console.log(task);
+
+  const status = boards[currentBoardIndex].columns.map((column) => column);
+  console.log(status.map((status) => status.name).at(1));
 
   const handleClickOutside = (event) => {
     if (myDivRef.current && !myDivRef.current.contains(event.target)) {
@@ -67,7 +69,7 @@ function TaskPreview() {
   };
 
   // stating current status
-  const [currentStatus, setCurrentStatus] = useState("");
+  const [currentStatus, setCurrentStatus] = useState(ClickedTaskName);
 
   return (
     <div
@@ -158,7 +160,7 @@ function TaskPreview() {
                 key={i}
                 className={`mt-3 flex h-9 items-center gap-3 rounded-md  ${
                   toggleBackground ? "bg-[#F4F7FD] " : "bg-[#20212C]"
-                } pl-3 transition duration-300 ease-in-out hover:bg-purple-500 hover:bg-opacity-25`}
+                } scroll-container pl-3 transition duration-300 ease-in-out hover:bg-purple-500 hover:bg-opacity-25`}
               >
                 <input className="h-4 min-w-4" type="checkbox" />
 
@@ -202,6 +204,7 @@ function TaskPreview() {
                   <img src="src\assets\icon-chevron-down.svg" alt="" />
                 )}
               </button>
+
               {DropDownCurrentStatus && (
                 <motion.div
                   className={`md:max-h-1/4 lg:max-h-1/5 xl:max-h-1/6 scroll-container absolute top-[100%] mt-2  flex h-[15vh] max-h-[200px] w-full flex-col gap-2 overflow-y-scroll  rounded-lg ${
@@ -211,47 +214,21 @@ function TaskPreview() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                 >
-                  <div
-                    className={`cursor-pointer text-[.8125rem] ${
-                      toggleBackground
-                        ? "hover:font-bold hover:text-black"
-                        : "hover:font-bold hover:text-white"
-                    } hover:font-bold hover:text-white`}
-                    onClick={(e) => {
-                      setCurrentStatus(e.target.innerHTML);
-                      dispatch(closeDropDownCurrentStatus());
-                    }}
-                  >
-                    a
-                  </div>
-
-                  <div
-                    className={`cursor-pointer text-[.8125rem] ${
-                      toggleBackground
-                        ? "hover:font-bold hover:text-black"
-                        : "hover:font-bold hover:text-white"
-                    } hover:font-bold hover:text-white`}
-                    onClick={(e) => {
-                      setCurrentStatus(e.target.innerHTML);
-                      dispatch(closeDropDownCurrentStatus());
-                    }}
-                  >
-                    a
-                  </div>
-
-                  <div
-                    className={`cursor-pointer text-[.8125rem] ${
-                      toggleBackground
-                        ? "hover:font-bold hover:text-black"
-                        : "hover:font-bold hover:text-white"
-                    } hover:font-bold hover:text-white`}
-                    onClick={(e) => {
-                      setCurrentStatus(e.target.innerHTML);
-                      dispatch(closeDropDownCurrentStatus());
-                    }}
-                  >
-                    a
-                  </div>
+                  {status.map((status) => (
+                    <div
+                      className={`cursor-pointer text-[.8125rem] ${
+                        toggleBackground
+                          ? "hover:font-bold hover:text-black"
+                          : "hover:font-bold hover:text-white"
+                      } hover:font-bold hover:text-white`}
+                      onClick={(e) => {
+                        setCurrentStatus(e.target.innerHTML);
+                        dispatch(closeDropDownCurrentStatus());
+                      }}
+                    >
+                      {status.name}
+                    </div>
+                  ))}
                 </motion.div>
               )}
             </div>
