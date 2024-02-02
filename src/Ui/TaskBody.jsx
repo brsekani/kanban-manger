@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { openTaskPreview } from "./UiSlice";
-import data from "../assets/data.json";
+import { setClickedTaskPreview } from "../data/dataSlice";
 
 function TaskBody({ column }) {
   const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);
+
   const dispatch = useDispatch();
 
   // const task = data.boards[0].columns.map((column) =>
@@ -15,13 +16,20 @@ function TaskBody({ column }) {
   return (
     <div className="flex h-full flex-col gap-8 pb-32 ">
       {column.tasks.length > 0 ? (
-        column.tasks.map((task) => (
+        column.tasks.map((task, i) => (
           <div
             className={`flex h-[110px] w-[280px] flex-col justify-center gap-1 rounded-2xl ${
               toggleBackground ? "bg-white" : "bg-[#2B2C37]"
             }  cursor-pointer px-4 py-5 shadow-md shadow-[#364e7e1a] transition-all duration-500 ease-in-out`}
-            onClick={() => dispatch(openTaskPreview())}
-            key={task.title} // Add a unique key for each task
+            onClick={() =>
+              dispatch(
+                openTaskPreview(),
+                dispatch(
+                  setClickedTaskPreview({ name: column.name, index: i }),
+                ),
+              )
+            }
+            key={i} // Add a unique key for each task
           >
             <h1
               className={`line-clamp-3 break-words text-[.9375rem]  font-bold hover:text-[#635fc7]  ${

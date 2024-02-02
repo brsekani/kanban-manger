@@ -6,10 +6,11 @@ import { openAddNewColumn } from "../Ui/UiSlice";
 import TaskHeader from "../Ui/TaskHeader";
 import TaskBody from "../Ui/TaskBody";
 import AddNewColumnBtn from "../Ui/AddNewColumnBtn";
-import data from "../assets/data.json";
 
 function Board() {
   const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);
+  const { boards, currentBoardIndex } = useSelector((state) => state.data);
+
   const dispatch = useDispatch();
 
   return (
@@ -31,8 +32,8 @@ function Board() {
       <div className="h-full ">
         <div className=" flex h-full gap-8 px-8 py-6 ">
           {/* Columns */}
-          {data.boards[0].columns.map((column) => (
-            <div className="">
+          {boards[currentBoardIndex].columns.map((column, i) => (
+            <div className="" key={i}>
               <TaskHeader column={column} />
               <TaskBody column={column} />
             </div>

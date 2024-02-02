@@ -11,6 +11,8 @@ import BoardHeaders from "./BoardHeaders";
 
 function SideBar() {
   const { toggleBackground } = useSelector((state) => state.ui);
+  const { boards, currentBoardIndex } = useSelector((state) => state.data);
+  const numberOfBoards = boards.length;
 
   const dispatch = useDispatch();
 
@@ -23,7 +25,7 @@ function SideBar() {
       <div className="flex min-h-screen flex-col justify-between pb-20">
         <div className="">
           <h3 className="my-4 ml-8 text-sm font-bold uppercase tracking-[2.4px] text-[#828fa3]">
-            All Board<span> (3)</span>
+            All Board<span> ({numberOfBoards})</span>
           </h3>
 
           <BoardHeaders />

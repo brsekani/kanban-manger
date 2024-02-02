@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import data from "../assets/data.json";
+import { useDispatch, useSelector } from "react-redux";
+import data from "../data/data.json";
+import { setCurrectBoard } from "../data/dataSlice";
 
 function BoardHeaders() {
   const [selectedHeader, setSelectedHeader] = useState(1);
 
   const { toggleBackground } = useSelector((state) => state.ui);
+  // const data = useSelector((state) => state.ui);
 
-  function handleSeletedHeader(id) {
+  const dispatch = useDispatch();
+
+  function handleCurrentBoard(id) {
     setSelectedHeader(id);
+    dispatch(setCurrectBoard(id));
   }
 
   return (
@@ -25,7 +30,7 @@ function BoardHeaders() {
                 ? "hover:bg-white"
                 : ""
           }  transition-all duration-500`}
-          onClick={() => handleSeletedHeader(index + 1)}
+          onClick={() => handleCurrentBoard(index + 1)}
         >
           <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
             <path

@@ -15,6 +15,9 @@ function Nav() {
     (state) => state.ui,
   );
 
+  const { boards, currentBoardIndex } = useSelector((state) => state.data);
+  const BoardName = boards[currentBoardIndex].name;
+
   const handleClickOutside = (event) => {
     if (myDivRef.current && !myDivRef.current.contains(event.target)) {
       dispatch(CloseDropDownSetting());
@@ -68,7 +71,7 @@ function Nav() {
               toggleBackground ? "text-black" : "text-white"
             } `}
           >
-            Platform Launch
+            {BoardName}
           </h1>
           <div className="flex items-center justify-between gap-4">
             <button
