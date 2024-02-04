@@ -46,6 +46,16 @@ function EditBoard() {
     setInputs(newInputs);
   };
 
+  // Data
+  const task = boards[currentBoardIndex].columns
+    .filter((column) => column.name === ClickedTaskName)
+    .at(0)
+    .tasks.at(ClickedTaskIndex);
+  console.log(task);
+
+  const status = boards[currentBoardIndex].columns.map((column) => column);
+  console.log(status.map((status) => status.name).at(1));
+
   return (
     <div
       className={`absolute left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)]  `}

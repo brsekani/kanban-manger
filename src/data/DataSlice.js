@@ -26,12 +26,31 @@ const DataSlice = createSlice({
     setClickedTaskPreview: (state, action) => {
       state.ClickedTaskName = action.payload.name;
       state.ClickedTaskIndex = action.payload.index;
-      console.log(state.ClickedTaskIndex, state.ClickedTaskName);
+    },
+    deleteTask: (state, action) => {
+      const { ClickedTaskName, ClickedTaskIndex } = action.payload;
+
+      // Find the index of the column with the specified name
+      const columnIndex = state.boards[
+        state.currentBoardIndex
+      ].columns.findIndex((column) => column.name === ClickedTaskName);
+
+      // If the column is found
+      if (columnIndex !== -1) {
+        // Create a new array of tasks excluding the one at ClickTaskIndex
+        const updatedTasks = state.boards[state.currentBoardIndex].columns[
+          columnIndex
+        ].tasks.filter((_, i) => i !== ClickedTaskIndex);
+
+        state.boards[state.currentBoardIndex].columns[columnIndex].tasks =
+          updatedTasks;
+      }
     },
   },
 });
 
-export const { setCurrectBoard, setClickedTaskPreview } = DataSlice.actions;
+export const { setCurrectBoard, setClickedTaskPreview, deleteTask } =
+  DataSlice.actions;
 
 // export const selectCurrentBoard = (state) => {
 //   const currentIndex = state.data.currentBoardIndex;

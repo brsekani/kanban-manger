@@ -9,6 +9,7 @@ import {
   closeDeleteTask,
 } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
+import { deleteTask } from "../data/dataSlice";
 
 function DeleteTask() {
   const myDivRef = useRef(null);
@@ -31,6 +32,16 @@ function DeleteTask() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dispatch]);
+
+  const { boards, currentBoardIndex, ClickedTaskName, ClickedTaskIndex } =
+    useSelector((state) => state.data);
+
+  console.log(currentBoardIndex, ClickedTaskName, ClickedTaskIndex);
+
+  // const task = boards[currentBoardIndex].columns
+  //   .filter((column) => column.name === ClickedTaskName)
+  //   .at(0)
+  //   .tasks.at(ClickedTaskIndex);
 
   return (
     <div
@@ -56,16 +67,36 @@ function DeleteTask() {
           </p>
 
           <div className="flex items-center gap-4">
-            <button className="h-10 w-full rounded-[20px] bg-[#ea5555] text-[0.8125rem] font-bold text-white">
+            <button
+              className="h-10 w-full rounded-[20px] bg-[#ea5555] text-[0.8125rem] font-bold text-white"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(closeDeleteTask());
+                dispatch(
+                  deleteTask({
+                    ClickedTaskIndex: ClickedTaskIndex,
+                    ClickedTaskName: ClickedTaskName,
+                  }),
+                );
+              }}
+            >
               Delete
             </button>
+
             <button
               className={`h-10 w-full rounded-[20px]  ${
                 toggleBackground ? "bg-[#625fc721]" : "bg-white"
               } text-[0.8125rem] font-bold text-[#635fc7]`}
               onClick={(e) => {
                 e.preventDefault();
-                dispatch(closeDeleteTask());
+                dispatch(
+                  closeDeleteTask(),
+                  deleteTask({
+                    currentBoardIndex,
+                    ClickedTaskName,
+                    ClickedTaskIndex,
+                  }),
+                );
               }}
             >
               Cancel

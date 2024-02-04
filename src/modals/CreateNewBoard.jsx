@@ -107,7 +107,7 @@ function CreateNewBoard() {
                   <input
                     onChange={(e) => handleinputChange(index, e.target.value)}
                     value={boardColumn}
-                    className={`pt-0.7 h-10 w-full ${
+                    className={`focus:ring-[#635fc7]pt-0.7 m-[2px] h-10 w-full focus:ring-2 ${
                       toggleBackground ? "bg-white" : "bg-[#2b2c37]"
                     } ${
                       toggleBackground ? "text-black" : "text-white"
@@ -115,11 +115,13 @@ function CreateNewBoard() {
                     placeholder="e.g Todo"
                     defaultValue="Todo"
                   />
-                  <ImCross
-                    className="mr-3 cursor-pointer"
-                    onClick={() => removeInput(index)}
-                    color="#828FA340"
-                  />
+                  {boardColumns.length > 1 && (
+                    <ImCross
+                      className="mr-3 cursor-pointer"
+                      onClick={() => removeInput(index)}
+                      color="#828FA340"
+                    />
+                  )}
                 </div>
               ))}
             </div>
