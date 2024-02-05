@@ -5,8 +5,6 @@ import { closeEditBoard } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 
 function EditBoard() {
-  const [inputs, setInputs] = useState([""]);
-
   const myDivRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -47,15 +45,18 @@ function EditBoard() {
   };
 
   // Data
-  const task = boards[currentBoardIndex].columns
-    .filter((column) => column.name === ClickedTaskName)
-    .at(0)
-    .tasks.at(ClickedTaskIndex);
-  console.log(task);
 
-  const status = boards[currentBoardIndex].columns.map((column) => column);
-  console.log(status.map((status) => status.name).at(1));
+  const { boards, currentBoardIndex, ClickedTaskName, ClickedTaskIndex } =
+    useSelector((state) => state.data);
 
+  const boardName = boards[currentBoardIndex].name;
+
+  console.log(boardName);
+
+  const columns = boards[currentBoardIndex].columns;
+  console.log(columns);
+
+  const [inputs, setInputs] = useState(columns);
   return (
     <div
       className={`absolute left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)]  `}
@@ -93,6 +94,7 @@ function EditBoard() {
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
               }  p-4 text-sm font-bold text-white outline-none`}
               placeholder="e.g Web Development"
+              defaultValue={boardName}
             />
           </div>
 
@@ -118,14 +120,16 @@ function EditBoard() {
                     } p-4 text-sm font-bold text-white outline-none`}
                     placeholder="e.g Todo"
                     defaultValue="Todo"
-                    value={input}
+                    value={input.name}
                     onChange={(e) => handleinputChange(index, e.target.value)}
                   />
-                  <ImCross
-                    className="mr-3 cursor-pointer"
-                    color="#828FA340"
-                    onClick={() => removeInput(index)}
-                  />
+                  {inputs.length > 1 && (
+                    <ImCross
+                      className="mr-3 cursor-pointer"
+                      color="#828FA340"
+                      onClick={() => removeInput(index)}
+                    />
+                  )}
                 </div>
               ))}
             </div>
