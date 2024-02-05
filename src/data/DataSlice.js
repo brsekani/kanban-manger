@@ -6,13 +6,14 @@ const initialState = {
   boards: data.boards,
   currentBoardIndex: 0, // Assume the default current board index
   ClickedTaskName: "",
-  ClickedTaskIndex: null,
+  ClickedTaskIndex: 0,
 };
 
 const DataSlice = createSlice({
   name: "dataSlice",
   initialState,
   reducers: {
+    // SET
     setCurrectBoard: (state, action) => {
       // Assuming payload is an index
       const index = action.payload - 1;
@@ -27,6 +28,9 @@ const DataSlice = createSlice({
       state.ClickedTaskName = action.payload.name;
       state.ClickedTaskIndex = action.payload.index;
     },
+
+    // DELETE
+    // 1. Delete task
     deleteTask: (state, action) => {
       const { ClickedTaskName, ClickedTaskIndex } = action.payload;
 
@@ -46,11 +50,28 @@ const DataSlice = createSlice({
           updatedTasks;
       }
     },
+    // 2. Delete Board
+    deleteBoard: (state, action) => {
+      state.boards = [
+        ...state.boards.slice(0, action.payload),
+        ...state.boards.slice(action.payload + 1),
+      ];
+
+      state.currentBoardIndex =
+        state.currentBoardIndex >= state.boards.length
+          ? state.boards.length - 1
+          : state.currentBoardIndex;
+      console.log(state.currentBoardIndex, action.payload);
+    },
   },
 });
 
-export const { setCurrectBoard, setClickedTaskPreview, deleteTask } =
-  DataSlice.actions;
+export const {
+  setCurrectBoard,
+  setClickedTaskPreview,
+  deleteTask,
+  deleteBoard,
+} = DataSlice.actions;
 
 // export const selectCurrentBoard = (state) => {
 //   const currentIndex = state.data.currentBoardIndex;

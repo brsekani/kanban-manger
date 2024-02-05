@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeDeleteBoard } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
+import { deleteBoard } from "../data/dataSlice";
 
 function DeleteBoard() {
   const myDivRef = useRef(null);
@@ -23,6 +24,9 @@ function DeleteBoard() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dispatch]);
+
+  const { boards, currentBoardIndex, ClickedTaskName, ClickedTaskIndex } =
+    useSelector((state) => state.data);
 
   return (
     <div
@@ -47,7 +51,14 @@ function DeleteBoard() {
           </p>
 
           <div className="flex items-center gap-4">
-            <button className="h-10 w-full rounded-[20px] bg-[#ea5555] text-[0.8125rem] font-bold text-white">
+            <button
+              className="h-10 w-full rounded-[20px] bg-[#ea5555] text-[0.8125rem] font-bold text-white "
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(closeDeleteBoard());
+                dispatch(deleteBoard(currentBoardIndex));
+              }}
+            >
               Delete
             </button>
             <button

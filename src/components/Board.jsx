@@ -6,6 +6,7 @@ import { openAddNewColumn } from "../Ui/UiSlice";
 import TaskHeader from "../Ui/TaskHeader";
 import TaskBody from "../Ui/TaskBody";
 import AddNewColumnBtn from "../Ui/AddNewColumnBtn";
+import EmptyBoard from "./EmptyBoard";
 
 function Board() {
   const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);
@@ -30,21 +31,29 @@ function Board() {
       )}
 
       <div className="h-full ">
-        <div className=" flex h-full gap-8 px-8 py-6 ">
+        <div className=" flex  h-full gap-8 px-8 py-6 ">
           {/* Columns */}
-          {boards[currentBoardIndex].columns.map((column, i) => (
-            <div className="" key={i}>
-              <TaskHeader column={column} />
-              <TaskBody column={column} />
+          {boards.length > 0 ? (
+            boards[currentBoardIndex]?.columns?.map((column, i) => (
+              <div className="" key={i}>
+                <TaskHeader column={column} />
+                <TaskBody column={column} />
+              </div>
+            ))
+          ) : (
+            <div className="">
+              <EmptyBoard />
             </div>
-          ))}
+          )}
 
-          <button
-            className="bg-linear-gradient-to-b mt-12 flex h-full w-[280px] items-center justify-center rounded-md font-bold"
-            onClick={() => dispatch(openAddNewColumn())}
-          >
-            <AddNewColumnBtn />
-          </button>
+          {boards.length > 0 && (
+            <button
+              className="bg-linear-gradient-to-b mt-12 flex h-full w-[280px] items-center justify-center rounded-md font-bold"
+              onClick={() => dispatch(openAddNewColumn())}
+            >
+              <AddNewColumnBtn />
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -52,3 +61,26 @@ function Board() {
 }
 
 export default Board;
+
+// <div className=" flex  h-full gap-8 px-8 py-6 ">
+// {/* Columns */}
+// {boards.length > 0 ? (
+//   boards[currentBoardIndex].columns.map((column, i) => (
+//     <div className="" key={i}>
+//       <TaskHeader column={column} />
+//       <TaskBody column={column} />
+//     </div>
+//   ))
+// ) : (
+//   <EmptyBoard />
+// )}
+
+// {boards.length > 0 && (
+//   <button
+//     className="bg-linear-gradient-to-b mt-12 flex h-full w-[280px] items-center justify-center rounded-md font-bold"
+//     onClick={() => dispatch(openAddNewColumn())}
+//   >
+//     <AddNewColumnBtn />
+//   </button>
+// )}
+// </div>

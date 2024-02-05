@@ -16,7 +16,7 @@ function Nav() {
   );
 
   const { boards, currentBoardIndex } = useSelector((state) => state.data);
-  const BoardName = boards[currentBoardIndex].name;
+  const BoardName = boards[currentBoardIndex]?.name;
 
   const handleClickOutside = (event) => {
     if (myDivRef.current && !myDivRef.current.contains(event.target)) {
@@ -71,21 +71,23 @@ function Nav() {
               toggleBackground ? "text-black" : "text-white"
             } `}
           >
-            {BoardName}
+            {boards.length > 0 ? BoardName : "No Board Found"}
           </h1>
-          <div className="flex items-center justify-between gap-4">
-            <button
-              className="scroll-mr-4 rounded-3xl bg-[#635FC7] px-4 py-3 font-bold"
-              onClick={() => dispatch(openCreateNewtask())}
-            >
-              +Add New Task
-            </button>
-            <img
-              className="cursor-pointer"
-              src="src\assets\icon-vertical-ellipsis.svg"
-              onClick={() => dispatch(toggleDropDownSetting())}
-            />
-          </div>
+          {boards.length > 0 && (
+            <div className="flex items-center justify-between gap-4">
+              <button
+                className="scroll-mr-4 rounded-3xl bg-[#635FC7] px-4 py-3 font-bold"
+                onClick={() => dispatch(openCreateNewtask())}
+              >
+                +Add New Task
+              </button>
+              <img
+                className="cursor-pointer"
+                src="src\assets\icon-vertical-ellipsis.svg"
+                onClick={() => dispatch(toggleDropDownSetting())}
+              />
+            </div>
+          )}
         </div>
       </nav>
       {dropDownSettingOpen && <DropDownSetting />}

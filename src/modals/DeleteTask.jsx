@@ -89,14 +89,7 @@ function DeleteTask() {
               } text-[0.8125rem] font-bold text-[#635fc7]`}
               onClick={(e) => {
                 e.preventDefault();
-                dispatch(
-                  closeDeleteTask(),
-                  deleteTask({
-                    currentBoardIndex,
-                    ClickedTaskName,
-                    ClickedTaskIndex,
-                  }),
-                );
+                dispatch(closeDeleteTask());
               }}
             >
               Cancel
