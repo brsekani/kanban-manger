@@ -27,7 +27,7 @@
 
 /* Custom styles for scrollbar */
 .scroll-container {
-  max-height: 200px; /* Set your desired maximum height */
+  /* max-height: 200px;  */
   overflow-y: auto;
   scrollbar-width: thin; /* For Firefox */
   scrollbar-color: #4a5568 #2d3748; /* For Firefox */

@@ -21,7 +21,7 @@ function BoardHeaders() {
   }
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="scroll-container flex max-h-72  flex-col gap-1 overflow-y-auto">
       {boards.map((item, index) => (
         <button
           key={index + 1}
@@ -45,7 +45,7 @@ function BoardHeaders() {
             </svg>
           </svg>
           <p
-            className={`mb-3 mt-3 ${
+            className={`mb-3 mt-3 max-w-48 overflow-hidden text-ellipsis text-nowrap ${
               selectedHeader === index ? "text-white" : ""
             }`}
           >

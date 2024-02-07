@@ -28,6 +28,8 @@ function DeleteBoard() {
   const { boards, currentBoardIndex, ClickedTaskName, ClickedTaskIndex } =
     useSelector((state) => state.data);
 
+  const BoardName = boards[currentBoardIndex]?.name;
+
   return (
     <div
       className={`absolute left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)]  `}
@@ -46,8 +48,10 @@ function DeleteBoard() {
             Delete this Board?
           </h1>
           <p className="text-[0.8125rem] font-medium text-[#828fa3]">
-            Are you sure you want to delete the "Example Board 3" board? This
-            action will remove all columns and tasks and cannot be reversed.
+            Are you sure you want to delete the{" "}
+            <span className="font-bold text-red-500">{BoardName}</span> board?
+            This action will remove all columns and tasks and cannot be
+            reversed.
           </p>
 
           <div className="flex items-center gap-4">

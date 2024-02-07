@@ -63,6 +63,26 @@ const DataSlice = createSlice({
           : state.currentBoardIndex;
       console.log(state.currentBoardIndex, action.payload);
     },
+
+    // 3. Reset Board
+    resetBoard: (state) => {
+      const currentBoard = state.boards[state.currentBoardIndex];
+      currentBoard.columns = [];
+    },
+
+    // CREATE NEW BOARD
+    createBoard: (state, action) => {
+      const { BoardName, columns } = action.payload.data;
+
+      const updatedBoard = [
+        ...state.boards,
+        { name: BoardName, columns: columns },
+      ];
+      state.boards = updatedBoard;
+
+      // setting new board to the currrent board
+      state.currentBoardIndex = action.payload.currentBoard;
+    },
   },
 });
 
@@ -71,12 +91,8 @@ export const {
   setClickedTaskPreview,
   deleteTask,
   deleteBoard,
+  resetBoard,
+  createBoard,
 } = DataSlice.actions;
-
-// export const selectCurrentBoard = (state) => {
-//   const currentIndex = state.data.currentBoardIndex;
-//   console.log(state);
-//   return state.boards[currentIndex];
-// };
 
 export default DataSlice.reducer;

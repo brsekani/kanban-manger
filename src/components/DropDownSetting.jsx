@@ -27,15 +27,7 @@ function DropDownSetting() {
         >
           Edit Board
         </li>
-        <li
-          className="cursor-pointer font-normal text-[#828fa3] hover:font-bold"
-          onClick={() => {
-            dispatch(openClearBoard());
-            dispatch(CloseDropDownSetting());
-          }}
-        >
-          Clear Board
-        </li>
+
         <li
           className="cursor-pointer font-normal text-red-400 hover:font-bold"
           onClick={() => {

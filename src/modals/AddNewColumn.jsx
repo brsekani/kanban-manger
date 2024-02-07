@@ -84,7 +84,6 @@ function AddNewColumn() {
               font-bold ${
                 toggleBackground ? "text-black" : "text-white"
               }  outline-none`}
-              disabled
             />
           </div>
 

@@ -15,7 +15,7 @@ function TaskBody({ column }) {
 
   return (
     <div className="flex h-full flex-col gap-8 pb-32 ">
-      {column.tasks.length > 0 ? (
+      {column?.tasks?.length > 0 ? (
         column.tasks.map((task, i) => (
           <div
             key={i} // Add a unique key for each task

@@ -9,6 +9,7 @@ import {
 import { motion } from "framer-motion";
 
 function CreateNewBoard() {
+  const [currentStatus, setCurrentStatus] = useState("Select Column");
   const [subTasks, setSubTasks] = useState([""]);
   const myDivRef = useRef(null);
 
@@ -53,8 +54,10 @@ function CreateNewBoard() {
     setSubTasks(newSubTasks);
   };
 
+  const { boards, currentBoardIndex } = useSelector((state) => state.data);
+  const columns = boards[currentBoardIndex].columns.map((column) => column);
+
   // stating current status
-  const [currentStatus, setCurrentStatus] = useState("");
 
   return (
     <div
@@ -184,54 +187,28 @@ function CreateNewBoard() {
 
               {DropDownCurrentStatus && (
                 <motion.div
-                  className={`md:max-h-1/4 lg:max-h-1/5 xl:max-h-1/6 scrollbar-hide absolute top-[110%] mt-2  flex h-[15vh] max-h-[70px] w-full flex-col gap-2 overflow-y-scroll  rounded-lg ${
+                  className={`scrollbar-hide absolute top-[110%] mt-2 flex   w-full flex-col gap-2 overflow-y-scroll  rounded-lg ${
                     toggleBackground ? "bg-white" : "bg-[#2b2c37] "
-                  } p-4 text-[#828fa3] shadow-md ring ring-blue-500 ring-opacity-10`}
+                  } scroll-container p-4 text-[#828fa3] shadow-md ring ring-blue-500 ring-opacity-10`}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                 >
-                  <div
-                    className={`cursor-pointer text-[.8125rem] ${
-                      toggleBackground
-                        ? "hover:font-bold hover:text-black"
-                        : "hover:font-bold hover:text-white"
-                    } hover:font-bold hover:text-white`}
-                    onClick={(e) => {
-                      setCurrentStatus(e.target.innerHTML);
-                      dispatch(closeDropDownCurrentStatus());
-                    }}
-                  >
-                    a
-                  </div>
-
-                  <div
-                    className={`cursor-pointer text-[.8125rem] ${
-                      toggleBackground
-                        ? "hover:font-bold hover:text-black"
-                        : "hover:font-bold hover:text-white"
-                    } hover:font-bold hover:text-white`}
-                    onClick={(e) => {
-                      setCurrentStatus(e.target.innerHTML);
-                      dispatch(closeDropDownCurrentStatus());
-                    }}
-                  >
-                    c
-                  </div>
-
-                  <div
-                    className={`cursor-pointer text-[.8125rem] ${
-                      toggleBackground
-                        ? "hover:font-bold hover:text-black"
-                        : "hover:font-bold hover:text-white"
-                    } hover:font-bold hover:text-white`}
-                    onClick={(e) => {
-                      setCurrentStatus(e.target.innerHTML);
-                      dispatch(closeDropDownCurrentStatus());
-                    }}
-                  >
-                    b
-                  </div>
+                  {columns.map((column) => (
+                    <div
+                      className={`cursor-pointer text-[.8125rem] ${
+                        toggleBackground
+                          ? "hover:font-bold hover:text-black"
+                          : "hover:font-bold hover:text-white"
+                      } hover:font-bold hover:text-white`}
+                      onClick={(e) => {
+                        setCurrentStatus(e.target.innerHTML);
+                        dispatch(closeDropDownCurrentStatus());
+                      }}
+                    >
+                      {column.name}
+                    </div>
+                  ))}
                 </motion.div>
               )}
             </div>
