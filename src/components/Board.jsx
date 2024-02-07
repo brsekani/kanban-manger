@@ -32,7 +32,8 @@ function Board() {
       )}
 
       <div className="h-full ">
-        <div className=" flex  h-full gap-8 px-8 py-6 ">
+        {/* BUG */}
+        <div className=" flex  h-full gap-8  px-8 py-6">
           {/* Columns */}
           {boards.length > 0 ? (
             boards[currentBoardIndex]?.columns?.map((column, i) => (

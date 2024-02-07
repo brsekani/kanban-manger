@@ -83,6 +83,34 @@ const DataSlice = createSlice({
       // setting new board to the currrent board
       state.currentBoardIndex = action.payload.currentBoard;
     },
+
+    //ADD NEW TASK
+    addNewTask: (state, action) => {
+      const { title, status, description, subTasks } = action.payload;
+      const data = action.payload;
+
+      // Find the column with the matching status
+      const column = state.boards[state.currentBoardIndex].columns.find(
+        (col) => col.name === status,
+      );
+
+      if (column) {
+        const newTask = {
+          title,
+          description,
+          status,
+          subtasks: subTasks.map((subTask) => ({
+            ...subTask,
+            isCompleted: false,
+          })),
+        };
+
+        // Update the tasks array of the found column with the new task
+        column.tasks.push(newTask);
+      } else {
+        alert(`Column with status ${status} not found`);
+      }
+    },
   },
 });
 
@@ -93,6 +121,7 @@ export const {
   deleteBoard,
   resetBoard,
   createBoard,
+  addNewTask,
 } = DataSlice.actions;
 
 export default DataSlice.reducer;

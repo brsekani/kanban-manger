@@ -29,11 +29,9 @@ function TaskPreview() {
     .at(0)
     .tasks.at(ClickedTaskIndex);
 
-  const taskTest = boards[currentBoardIndex].columns
+  const taskLength = boards[currentBoardIndex].columns
     .filter((column) => column.name === ClickedTaskName)
-    .at(0).tasks;
-
-  console.log(taskTest);
+    .at(0).tasks.length;
 
   const status = boards[currentBoardIndex].columns.map((column) => column);
   console.log(status.map((status) => status.name).at(1));
@@ -54,27 +52,18 @@ function TaskPreview() {
     };
   }, [dispatch]);
 
-  //Add input
-  const addInput = (e) => {
-    e.preventDefault();
-    setInputs([...inputs, ""]);
-  };
-
-  // Remove input
-  const removeInput = (index) => {
-    const newInput = [...inputs];
-    newInput.splice(index, 1);
-    setInputs(newInput);
-  };
-
-  const handleinputChange = (index, value) => {
-    const newInputs = [...inputs];
-    newInputs[index] = value;
-    setInputs(newInputs);
-  };
-
   // stating current status
   const [currentStatus, setCurrentStatus] = useState(ClickedTaskName);
+
+  // ! IMPORTANT
+  // Function to toggle subtask completion
+  // const toggleSubtaskCompletion = (index) => {
+  //   const newTask = { ...task };
+  //   newTask.subtasks[index].isCompleted = !newTask.subtasks[index].isCompleted;
+  //   // Update the task in the state
+  //   // Assuming you have a function to dispatch an action to update the task in Redux
+  //   // dispatch(updateTask(newTask));
+  // };
 
   return (
     <div
@@ -157,10 +146,10 @@ function TaskPreview() {
                 toggleBackground ? "text-[#828fa3]" : "text-white"
               } `}
             >
-              Subtasks(2 of 3)
+              Subtasks(1 of {taskLength})
             </h2>
 
-            {task.subtasks.map((subtask, i) => (
+            {task.subtasks?.map((subtask, i) => (
               <label
                 key={i}
                 className={`mt-3 flex h-9 items-center gap-3 rounded-md  ${
@@ -171,6 +160,8 @@ function TaskPreview() {
                   className="h-4 min-w-4"
                   type="checkbox"
                   checked={subtask.isCompleted}
+                  // ! IMPORTANT
+                  // onChange={() => toggleSubtaskCompletion(i)}
                 />
 
                 <span

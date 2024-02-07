@@ -7,6 +7,9 @@ import {
   toggleDropDownCurrentStatus,
 } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { data } from "autoprefixer";
+import { addNewTask } from "../data/dataSlice";
 
 function CreateNewBoard() {
   const [currentStatus, setCurrentStatus] = useState("Select Column");
@@ -57,7 +60,27 @@ function CreateNewBoard() {
   const { boards, currentBoardIndex } = useSelector((state) => state.data);
   const columns = boards[currentBoardIndex].columns.map((column) => column);
 
-  // stating current status
+  // FORM
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    const formData = {
+      title: data.title,
+      description: data.description,
+      subTasks: data.subTasks,
+      status: currentStatus,
+      // status: currentStatus.toLocaleLowerCase(),
+    };
+
+    console.log(formData);
+    dispatch(addNewTask(formData));
+    dispatch(closeCreateNewTask());
+    dispatch(closeDropDownCurrentStatus());
+  };
 
   return (
     <div
@@ -68,6 +91,7 @@ function CreateNewBoard() {
         ref={myDivRef}
       >
         <motion.form
+          onSubmit={handleSubmit(onSubmit)}
           className={`lg:w-[calc(100vw -2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center gap-6 rounded-md ${
             toggleBackground ? "bg-white" : "bg-[#2b2c37]"
           }   p-6 md:w-[480px] `}
@@ -92,6 +116,7 @@ function CreateNewBoard() {
               Title
             </label>
             <input
+              {...register("title", { required: "This field is required" })}
               className={`pt-0.7  m-1 mt-1 h-10 w-full rounded border border-[#828FA340] ${
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
               }  p-4 text-sm font-bold text-white outline-none`}
@@ -108,6 +133,7 @@ function CreateNewBoard() {
               Description (optional)
             </label>
             <textarea
+              {...register("description")}
               className={`m-1 mt-1 h-5 max-h-[112px]  min-h-[60px] w-full rounded border  border-[#828FA340] ${
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
               }  p-4 pt-[0.7] text-sm font-bold text-white outline-none`}
@@ -131,6 +157,7 @@ function CreateNewBoard() {
                   key={index}
                 >
                   <input
+                    {...register(`subTasks[${index}].title`)}
                     className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
                       toggleBackground ? "bg-white" : "bg-[#2b2c37]"
                     } p-4 text-sm font-bold text-white outline-none`}
@@ -163,7 +190,7 @@ function CreateNewBoard() {
                   toggleBackground ? "text-[#828fa3]" : "text-white"
                 }`}
               >
-                Current Status
+                Status
               </label>
 
               <div>
@@ -211,10 +238,19 @@ function CreateNewBoard() {
                   ))}
                 </motion.div>
               )}
+              {/* Hidden input for currentStatus */}
+              <input
+                type="hidden"
+                {...register("currentStatus")}
+                value={currentStatus}
+              />
             </div>
 
-            <button className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white">
-              Create new Border
+            <button
+              type="submit"
+              className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white"
+            >
+              Create Task
             </button>
           </div>
         </motion.form>
