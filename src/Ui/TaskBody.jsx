@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { openTaskPreview } from "./UiSlice";
-import { setClickedTaskPreview } from "../data/dataSlice";
+import { setClickedTaskPreview } from "../data/DataSlice";
 
 function TaskBody({ column }) {
   const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);

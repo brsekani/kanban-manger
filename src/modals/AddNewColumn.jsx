@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeAddNewColumn } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { addNewColumn } from "../data/dataSlice";
+import { addNewColumn } from "../data/DataSlice";
 
 function AddNewColumn() {
   const { toggleBackground } = useSelector((state) => state.ui);

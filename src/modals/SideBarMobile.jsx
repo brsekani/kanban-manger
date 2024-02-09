@@ -9,7 +9,7 @@ import {
 import { motion } from "framer-motion";
 import { IoIosSunny } from "react-icons/io";
 import { BsFillMoonStarsFill } from "react-icons/bs";
-import { setCurrectBoard } from "../data/dataSlice";
+import { setCurrectBoard } from "../data/DataSlice";
 
 function SideBarMobile() {
   const [selectedHeader, setSelectedHeader] = useState(0);

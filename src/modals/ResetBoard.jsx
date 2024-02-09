@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeResetBoard } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
-import { resetBoard } from "../data/dataSlice";
+import { resetBoard } from "../data/DataSlice";
 
 function ResetBoard() {
   const myDivRef = useRef(null);

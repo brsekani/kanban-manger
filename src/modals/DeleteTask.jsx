@@ -9,7 +9,7 @@ import {
   closeDeleteTask,
 } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
-import { deleteTask } from "../data/dataSlice";
+import { deleteTask } from "../data/DataSlice";
 
 function DeleteTask() {
   const myDivRef = useRef(null);

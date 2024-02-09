@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeCreateNewBoard } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { createBoard } from "../data/dataSlice";
+import { createBoard } from "../data/DataSlice";
 
 function CreateNewBoard() {
   const [boardColumns, setBoardColumns] = useState([""]);

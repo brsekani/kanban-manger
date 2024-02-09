@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeDeleteBoard } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
-import { deleteBoard } from "../data/dataSlice";
+import { deleteBoard } from "../data/DataSlice";
 
 function DeleteBoard() {
   const myDivRef = useRef(null);

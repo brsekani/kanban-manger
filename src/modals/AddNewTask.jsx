@@ -9,7 +9,7 @@ import {
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { data } from "autoprefixer";
-import { addNewTask } from "../data/dataSlice";
+import { addNewTask } from "../data/DataSlice";
 
 function CreateNewBoard() {
   const [currentStatus, setCurrentStatus] = useState("Select Column");
