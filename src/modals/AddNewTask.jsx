@@ -72,8 +72,7 @@ function CreateNewBoard() {
       title: data.title,
       description: data.description,
       subTasks: data.subTasks,
-      status: currentStatus,
-      // status: currentStatus.toLocaleLowerCase(),
+      status: currentStatus.toLocaleLowerCase(),
     };
 
     console.log(formData);
@@ -84,21 +83,29 @@ function CreateNewBoard() {
 
   return (
     <div
-      className={`absolute left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)]  `}
+      className={`fixed left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)] `}
     >
       <div
-        className={` m-0 rounded-none from-transparent p-0 font-normal`}
+        className={`m-auto w-full max-w-[30rem] rounded-none from-transparent p-0 font-normal`}
         ref={myDivRef}
       >
         <motion.form
           onSubmit={handleSubmit(onSubmit)}
-          className={`lg:w-[calc(100vw -2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center gap-6 rounded-md ${
+          className={`lg:w-[calc(100vw - 2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center gap-1 rounded-md ${
             toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-          }   p-6 md:w-[480px] `}
-          initial={{ y: "-100%", x: "-200px" }}
-          animate={toggleBackground ? { y: "-50%" } : { y: "-50%" }}
-          transition={{ duration: 0.5 }}
+          } w-full max-w-[30rem]  p-6 `}
+          // initial={{ y: "-100%", x: "-200px" }}
+          // animate={toggleBackground ? { y: "-50%" } : { y: "-50%" }}
+          // transition={{ duration: 0.5 }}
         >
+          <ImCross
+            className="ml-auto  flex md:hidden"
+            color="#828FA340"
+            onClick={() => {
+              dispatch(closeCreateNewTask());
+              dispatch(closeDropDownCurrentStatus());
+            }}
+          />
           <h1
             className={`text-[1.125rem] ${
               toggleBackground ? "text-black " : "text-white"
@@ -106,7 +113,6 @@ function CreateNewBoard() {
           >
             Add New Task
           </h1>
-
           <div className="">
             <label
               className={`text-xs font-bold  ${
@@ -123,7 +129,6 @@ function CreateNewBoard() {
               placeholder="e.g Web Development"
             />
           </div>
-
           <div>
             <label
               className={`text-xs font-bold  ${
@@ -135,11 +140,10 @@ function CreateNewBoard() {
             <textarea
               {...register("description")}
               className={`m-1 mt-1 h-5 max-h-[112px]  min-h-[60px] w-full rounded border  border-[#828FA340] ${
-                toggleBackground ? "bg-white" : "bg-[#2b2c37]"
+                toggleBackground ? "bg-white" : "resize-none bg-[#2b2c37] "
               }  p-4 pt-[0.7] text-sm font-bold text-white outline-none`}
             />
           </div>
-
           <div className="mb-1 flex flex-col">
             <div className="mb-1">
               <label
@@ -150,10 +154,10 @@ function CreateNewBoard() {
                 Subtasks
               </label>
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="scroll-container flex max-h-[5rem] flex-col gap-3">
               {subTasks.map((input, index) => (
                 <div
-                  className="flex items-center gap-5 focus:outline-none"
+                  className=" flex items-center gap-5 focus:outline-none"
                   key={index}
                 >
                   <input
@@ -172,17 +176,16 @@ function CreateNewBoard() {
                   />
                 </div>
               ))}
-              <button
-                className={`h-10 w-full rounded-[20px] ${
-                  toggleBackground ? "bg-[#625fc721]" : "bg-white"
-                }  font-bold text-[#635fc7]`}
-                onClick={addInput}
-              >
-                +Add New Column
-              </button>
             </div>
+            <button
+              className={`mt-2 h-10 w-full rounded-[20px] ${
+                toggleBackground ? "bg-[#625fc721]" : "bg-white"
+              }  font-bold text-[#635fc7]`}
+              onClick={addInput}
+            >
+              +Add New Column
+            </button>
           </div>
-
           <div className="flex flex-col items-center justify-center gap-6">
             <div className="relative flex w-full flex-col gap-0.5">
               <label
@@ -216,7 +219,7 @@ function CreateNewBoard() {
                 <motion.div
                   className={`scrollbar-hide absolute top-[110%] mt-2 flex   w-full flex-col gap-2 overflow-y-scroll  rounded-lg ${
                     toggleBackground ? "bg-white" : "bg-[#2b2c37] "
-                  } scroll-container p-4 text-[#828fa3] shadow-md ring ring-blue-500 ring-opacity-10`}
+                  } scroll-container scroll-container max-h-[6rem] p-4 text-[#828fa3] shadow-md ring ring-blue-500 ring-opacity-10`}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
@@ -227,7 +230,7 @@ function CreateNewBoard() {
                         toggleBackground
                           ? "hover:font-bold hover:text-black"
                           : "hover:font-bold hover:text-white"
-                      } hover:font-bold hover:text-white`}
+                      } hover:font-bold hover:text-white `}
                       onClick={(e) => {
                         setCurrentStatus(e.target.innerHTML);
                         dispatch(closeDropDownCurrentStatus());

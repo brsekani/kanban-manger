@@ -14,6 +14,7 @@ import DeleteBoard from "./modals/DeleteBoard";
 import ClearBoard from "./modals/ClearBoard";
 import ResetBoard from "./modals/ResetBoard";
 import AddNewColumn from "./modals/AddNewColumn";
+import SideBarMobile from "./modals/SideBarMobile";
 
 function App() {
   const {
@@ -27,6 +28,7 @@ function App() {
     ClearBoardOpen,
     ResetBoardOpen,
     addNewColumnOpen,
+    isSideBarMobileOpen,
   } = useSelector((state) => state.ui);
 
   return (
@@ -43,6 +45,7 @@ function App() {
       {ClearBoardOpen && <ClearBoard />}
       {ResetBoardOpen && <ResetBoard />}
       {addNewColumnOpen && <AddNewColumn />}
+      {isSideBarMobileOpen && <SideBarMobile />}
     </div>
   );
 }

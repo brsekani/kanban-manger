@@ -16,6 +16,7 @@ const initialState = {
   ResetBoardOpen: false,
   editTaskOpen: false,
   addNewColumnOpen: false,
+  isSideBarMobileOpen: false,
 };
 
 const UiSlice = createSlice({
@@ -149,6 +150,14 @@ const UiSlice = createSlice({
     closeAddNewColumn: (state) => {
       state.addNewColumnOpen = false;
     },
+
+    openSideBarMobile: (state) => {
+      state.isSideBarMobileOpen = true;
+    },
+
+    closeSideBarMobile: (state) => {
+      state.isSideBarMobileOpen = false;
+    },
   },
 });
 
@@ -185,6 +194,8 @@ export const {
   closeResetBoard,
   openAddNewColumn,
   closeAddNewColumn,
+  openSideBarMobile,
+  closeSideBarMobile,
 } = UiSlice.actions;
 
 export default UiSlice.reducer;

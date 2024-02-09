@@ -70,24 +70,33 @@ function EditTask() {
 
   return (
     <div
-      className={`absolute left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)]  `}
+      className={`fixed left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)] `}
     >
       <div
-        className={` m-0 rounded-none from-transparent p-0 font-normal`}
+        className={`m-auto w-full max-w-[30rem] rounded-none from-transparent p-0 font-normal`}
         ref={myDivRef}
       >
         <motion.form
-          className={`lg:w-[calc(100vw -2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center gap-1 rounded-md ${
+          className={`lg:w-[calc(100vw -2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center  rounded-md ${
             toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-          }   p-6 md:w-[480px] `}
-          initial={{ y: "-100%", x: "-200px" }}
-          animate={toggleBackground ? { y: "-50%" } : { y: "-50%" }}
-          transition={{ duration: 0.5 }}
+          }  scroll-container max-h-[32rem] w-full max-w-[30rem] overflow-auto p-6 pt-32 `}
+          // initial={{ y: "-100%", x: "-200px" }}
+          // animate={toggleBackground ? { y: "-50%" } : { y: "-50%" }}
+          // transition={{ duration: 0.5 }}
         >
+          <div>
+            <ImCross
+              className="ml-auto flex md:hidden "
+              color="#828FA340"
+              onClick={() => {
+                dispatch(closeEditTask());
+              }}
+            />
+          </div>
           <h1
             className={`text-[1.125rem] ${
               toggleBackground ? "text-black " : "text-white"
-            }   font-bold leading-6 `}
+            }   md:md-0 mb-3 font-bold leading-6`}
           >
             Edit Task
           </h1>
@@ -135,6 +144,7 @@ function EditTask() {
                 Subtasks
               </label>
             </div>
+
             <div className="scroll-container flex  max-h-28 flex-col gap-3 overflow-y-auto">
               {subTasks.length > 0 ? (
                 subTasks.map((input, index) => (

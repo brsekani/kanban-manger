@@ -3,6 +3,7 @@ import {
   CloseDropDownSetting,
   toggleDropDownSetting,
   openCreateNewtask,
+  openSideBarMobile,
 } from "../Ui/UiSlice";
 import DropDownSetting from "./DropDownSetting";
 import { useEffect, useRef } from "react";
@@ -11,9 +12,12 @@ function Nav() {
   const myDivRef = useRef();
   const dispatch = useDispatch();
 
-  const { dropDownSettingOpen, isSideBarOpen, toggleBackground } = useSelector(
-    (state) => state.ui,
-  );
+  const {
+    dropDownSettingOpen,
+    isSideBarOpen,
+    toggleBackground,
+    isSideBarMobileOpen,
+  } = useSelector((state) => state.ui);
 
   const { boards, currentBoardIndex } = useSelector((state) => state.data);
   const BoardName = boards[currentBoardIndex]?.name;
@@ -42,20 +46,24 @@ function Nav() {
         {/* <nav className={`flex h-20  w-full items-center bg-[#2b2c37] text-white`}> */}
         <div className="flex items-center justify-between">
           <div
-            className={`flex min-w-72 items-center gap-3 ${
+            className={`flex w-16 items-center gap-3 md:min-w-72 ${
               !isSideBarOpen ? "border-b-[1.5px]" : ""
             }  border-r-[1.5px] ${
               toggleBackground ? "border-[#e4ebfa]" : "border-[#3E3F4E]"
             }  py-[27px] transition-all duration-500 ease-in-out`}
           >
+            <img
+              className="h-6 cursor-pointer pl-6 md:hidden"
+              src="src\assets\logo-mobile.svg"
+            />
             {toggleBackground ? (
               <img
-                className="h-6 cursor-pointer pl-6"
+                className="hidden h-6 cursor-pointer  pl-6 md:flex"
                 src="src\assets\logo-dark.svg"
               />
             ) : (
               <img
-                className="h-6 cursor-pointer pl-6"
+                className="hidden h-6 cursor-pointer pl-6  md:flex"
                 src="src\assets\logo-light.svg"
               />
             )}
@@ -64,22 +72,51 @@ function Nav() {
         <div
           className={`flex h-full w-full items-center justify-between border-b-[1.5px]  ${
             toggleBackground ? "border-[#e4ebfa]" : "border-[#3E3F4E]"
-          } px-8 transition-all duration-500 ease-in-out`}
+          }  transition-all duration-500 ease-in-out`}
         >
-          <h1
-            className={`cursor-pointer font-primary text-2xl font-bold ${
-              toggleBackground ? "text-black" : "text-white"
-            } `}
+          <div className="hidden items-center px-8 md:flex">
+            <h1
+              className={`cursor-pointer font-primary text-2xl font-bold ${
+                toggleBackground ? "text-black" : "text-white"
+              } `}
+            >
+              {boards.length > 0 ? BoardName : "No Board Found"}
+            </h1>
+          </div>
+
+          <div
+            className="ml-2 flex items-center  transition-all duration-500 ease-in-out md:hidden"
+            onClick={() => dispatch(openSideBarMobile())}
           >
-            {boards.length > 0 ? BoardName : "No Board Found"}
-          </h1>
+            <h1
+              className={`cursor-pointer text-ellipsis text-nowrap font-primary text-[1.2rem] font-bold md:text-2xl ${
+                toggleBackground ? "text-black" : "text-white"
+              } `}
+            >
+              {boards.length > 0 ? BoardName : "No Board Found"}
+            </h1>
+            {isSideBarMobileOpen ? (
+              <img
+                src="src\assets\icon-chevron-up.svg "
+                alt=""
+                className="ml-2 mt-1 md:hidden"
+              />
+            ) : (
+              <img
+                src="src\assets\icon-chevron-down.svg"
+                alt=""
+                className="ml-2 mt-1 md:hidden"
+              />
+            )}
+          </div>
+
           {boards.length > 0 && (
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center justify-between gap-4 px-8">
               <button
-                className="scroll-mr-4 rounded-3xl bg-[#635FC7] px-4 py-3 font-bold"
+                className="scroll-mr-4 rounded-3xl bg-[#635FC7] px-4 py-1 font-bold md:py-3"
                 onClick={() => dispatch(openCreateNewtask())}
               >
-                +Add New Task
+                +<span className="hidden md:inline ">Add New Task</span>
               </button>
               <img
                 className="cursor-pointer"

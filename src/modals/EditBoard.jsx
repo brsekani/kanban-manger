@@ -59,20 +59,27 @@ function EditBoard() {
   const [inputs, setInputs] = useState(columns);
   return (
     <div
-      className={`absolute left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)]  `}
+      className={`fixed left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)] `}
     >
       <div
-        className={` m-0 rounded-none from-transparent p-0 font-normal`}
+        className={`m-auto w-full max-w-[30rem] rounded-none from-transparent p-0 font-normal`}
         ref={myDivRef}
       >
         <motion.form
-          className={`lg:w-[calc(100vw -2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center gap-6 rounded-md ${
+          className={`lg:w-[calc(100vw -2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center gap-5 rounded-md ${
             toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-          }   p-6 md:w-[480px] `}
-          initial={{ y: "-100%", x: "-200px" }}
-          animate={toggleBackground ? { y: "-50%" } : { y: "-50%" }}
-          transition={{ duration: 0.5 }}
+          }  w-full max-w-[30rem] p-6`}
+          // initial={{ y: "-100%", x: "-200px" }}
+          // animate={toggleBackground ? { y: "-50%" } : { y: "-50%" }}
+          // transition={{ duration: 0.5 }}
         >
+          <ImCross
+            className="ml-auto flex md:hidden"
+            color="#828FA340"
+            onClick={() => {
+              dispatch(closeEditBoard());
+            }}
+          />
           <h1
             className={`text-[1.125rem] ${
               toggleBackground ? "text-black " : "text-white"

@@ -20,7 +20,7 @@ function SideBar() {
     <div
       className={`relative flex max-h-full min-h-full min-w-72 flex-col border-r  ${
         toggleBackground ? "border-[#e4ebfa]" : "border-[#3E3F4E]"
-      } font-bold transition-all duration-500 ease-in-out `}
+      } hidden font-bold transition-all duration-500 ease-in-out md:flex`}
     >
       <div className="flex min-h-screen flex-col justify-between pb-20">
         <div className="">

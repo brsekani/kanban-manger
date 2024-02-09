@@ -84,14 +84,36 @@ const DataSlice = createSlice({
       state.currentBoardIndex = action.payload.currentBoard;
     },
 
+    // ADD COLUMN
+    addNewColumn: (state, action) => {
+      const column = action.payload;
+
+      // Find the current board
+      const currentBoard = state.boards[state.currentBoardIndex];
+
+      // Check if the current board and columns exist
+      if (currentBoard && currentBoard.columns) {
+        // Create a new column object
+        const newColumn = {
+          name: column[0].NewColumn,
+          tasks: [], // Initialize tasks as an empty array instead of an object
+        };
+
+        // Push the new column to the columns array
+        currentBoard.columns.push(newColumn);
+      }
+    },
+
     //ADD NEW TASK
     addNewTask: (state, action) => {
       const { title, status, description, subTasks } = action.payload;
       const data = action.payload;
 
       // Find the column with the matching status
+
       const column = state.boards[state.currentBoardIndex].columns.find(
-        (col) => col.name === status,
+        (col) =>
+          typeof col.name === "string" && col.name.toLowerCase() === status,
       );
 
       if (column) {
@@ -121,6 +143,7 @@ export const {
   deleteBoard,
   resetBoard,
   createBoard,
+  addNewColumn,
   addNewTask,
 } = DataSlice.actions;
 

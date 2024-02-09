@@ -3,11 +3,16 @@ import { ImCross } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import { closeAddNewColumn } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { addNewColumn } from "../data/dataSlice";
 
 function AddNewColumn() {
-  const [boardColumns, setBoardColumns] = useState([""]);
-
   const { toggleBackground } = useSelector((state) => state.ui);
+  const { boards, currentBoardIndex } = useSelector((state) => state.data);
+
+  const [boardColumns, setBoardColumns] = useState([]);
+
+  const BoardName = boards[currentBoardIndex]?.name;
 
   const myDivRef = useRef(null);
 
@@ -47,6 +52,15 @@ function AddNewColumn() {
     setBoardColumns(newBoardColumns);
   };
 
+  // FORM
+  const { register, handleSubmit, formState: errors } = useForm();
+
+  const onSubmit = (data) => {
+    dispatch(addNewColumn(data));
+    dispatch(closeAddNewColumn());
+    console.log(data);
+  };
+
   return (
     <div className="absolute left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)]">
       <div
@@ -54,6 +68,7 @@ function AddNewColumn() {
         ref={myDivRef}
       >
         <motion.form
+          onSubmit={handleSubmit(onSubmit)}
           className={`lg:w-[calc(100vw -2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center gap-6 rounded-md ${
             toggleBackground ? "bg-white" : "bg-[#2b2c37]"
           }  p-6 md:w-[480px]`}
@@ -82,8 +97,10 @@ function AddNewColumn() {
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
               }  p-4  text-sm
               font-bold ${
-                toggleBackground ? "text-black" : "text-white"
+                toggleBackground ? "text-black" : "text-[#747474]"
               }  outline-none`}
+              value={BoardName}
+              disabled
             />
           </div>
 
@@ -98,26 +115,47 @@ function AddNewColumn() {
               </label>
             </div>
             <div className="flex flex-col gap-3">
-              {boardColumns.map((boardColumn, index) => (
+              {/* old Column*/}
+              {boards[currentBoardIndex].columns.map((boardColumn, index) => (
                 <div
                   className="flex items-center gap-5 focus:outline-none"
                   key={index}
                 >
                   <input
                     onChange={(e) => handleinputChange(index, e.target.value)}
-                    value={boardColumn}
+                    value={boardColumn.name}
                     className={`pt-0.7 h-10 w-full ${
                       toggleBackground ? "bg-white" : "bg-[#2b2c37]"
                     } ${
                       toggleBackground ? "text-black" : "text-white"
                     } rounded border border-[#828FA340] bg-[#2b2c37] p-4 text-sm font-bold outline-none`}
                     placeholder="e.g Todo"
-                    defaultValue="Todo"
+                    disabled
+                  />
+                  <ImCross className="cursor-pointer" color="#828FA340" />
+                </div>
+              ))}
+              {/* New Columns */}
+              {boardColumns.map((boardColumn, index) => (
+                <div
+                  className="flex items-center gap-5 focus:outline-none"
+                  key={index}
+                >
+                  <input
+                    {...register(`${index}.NewColumn`)}
+                    onChange={(e) => handleinputChange(index, e.target.value)}
+                    value={boardColumn.name}
+                    className={`pt-0.7 h-10 w-full ${
+                      toggleBackground ? "bg-white" : "bg-[#2b2c37]"
+                    } ${
+                      toggleBackground ? "text-black" : "text-white"
+                    } rounded border border-[#828FA340] bg-[#2b2c37] p-4 text-sm font-bold outline-none focus:ring-2 focus:ring-[#635fc7]`}
+                    placeholder="e.g Todo"
                   />
                   <ImCross
                     className="cursor-pointer"
                     onClick={() => removeInput(index)}
-                    color="#828FA340"
+                    color="#80808b"
                   />
                 </div>
               ))}
@@ -125,15 +163,21 @@ function AddNewColumn() {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-6">
+            {boards[currentBoardIndex].columns.length + boardColumns.length <
+              5 && (
+              <button
+                className={`h-10 w-full rounded-[20px] ${
+                  toggleBackground ? "bg-[#625fc721]" : "bg-white"
+                }  font-bold text-[#635fc7]`}
+                onClick={(e) => addInput(e)}
+              >
+                +Add New Column
+              </button>
+            )}
             <button
-              className={`h-10 w-full rounded-[20px] ${
-                toggleBackground ? "bg-[#625fc721]" : "bg-white"
-              }  font-bold text-[#635fc7]`}
-              onClick={(e) => addInput(e)}
+              type="submit"
+              className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white"
             >
-              +Add New Column
-            </button>
-            <button className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white">
               Create new Border
             </button>
           </div>
