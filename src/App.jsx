@@ -32,7 +32,7 @@ function App() {
   } = useSelector((state) => state.ui);
 
   return (
-    <div className="h-[100vh] overflow-hidden ">
+    <div className="h-[100vh]   overflow-hidden ">
       <Nav />
       <Body />
       {createNewBoardOpen && <CreateNewBoard />}
