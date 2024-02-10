@@ -12,6 +12,8 @@ import {
 } from "../Ui/UiSlice";
 import { color, motion } from "framer-motion";
 
+import iconVerticalEllipsis from "../../src/assets/icon-vertical-ellipsis.svg";
+
 function TaskPreview() {
   const [inputs, setInputs] = useState();
   const myDivRef = useRef(null);
@@ -93,10 +95,7 @@ function TaskPreview() {
             </div>
             <div>
               <div onClick={() => dispatch(toggleDropDownEditAndDelete())}>
-                <img
-                  className="cursor-pointer"
-                  src="src\assets\icon-vertical-ellipsis.svg"
-                />
+                <img className="cursor-pointer" src={iconVerticalEllipsis} />
               </div>
               {DropDownEditAndDelete && (
                 <div

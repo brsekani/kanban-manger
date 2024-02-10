@@ -8,6 +8,13 @@ import {
 import DropDownSetting from "./DropDownSetting";
 import { useEffect, useRef } from "react";
 
+// IMPORTED IMAAGES
+import logoDarkMode from "../../src/assets/logo-dark.svg";
+import LogoLightMode from "../../src/assets/logo-light.svg";
+import ChervonUp from "../../src/assets/icon-chevron-up.svg";
+import ChervonDown from "../../src/assets/icon-chevron-down.svg";
+import IconVerticalEllipsis from "../../src/assets/icon-vertical-ellipsis.svg";
+
 function Nav() {
   const myDivRef = useRef();
   const dispatch = useDispatch();
@@ -59,13 +66,13 @@ function Nav() {
             {toggleBackground ? (
               <img
                 className="hidden h-6 cursor-pointer  pl-6 md:flex"
-                src="src\assets\logo-dark.svg"
+                src={logoDarkMode}
                 alt="logo"
               />
             ) : (
               <img
                 className="hidden h-6 cursor-pointer pl-6  md:flex"
-                src="src\assets\logo-light.svg"
+                src={LogoLightMode}
                 alt="logo"
               />
             )}
@@ -98,14 +105,10 @@ function Nav() {
               {boards.length > 0 ? BoardName : "No Board Found"}
             </h1>
             {isSideBarMobileOpen ? (
-              <img
-                src="src\assets\icon-chevron-up.svg "
-                alt="drop"
-                className="ml-2 mt-1 md:hidden"
-              />
+              <img src={ChervonUp} alt="drop" className="ml-2 mt-1 md:hidden" />
             ) : (
               <img
-                src="src\assets\icon-chevron-down.svg"
+                src={ChervonDown}
                 alt="drop"
                 className="ml-2 mt-1 md:hidden"
               />
@@ -122,7 +125,7 @@ function Nav() {
               </button>
               <img
                 className="cursor-pointer"
-                src="src\assets\icon-vertical-ellipsis.svg"
+                src={IconVerticalEllipsis}
                 onClick={() => dispatch(toggleDropDownSetting())}
                 alt="..."
               />
