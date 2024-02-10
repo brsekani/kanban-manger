@@ -60,11 +60,13 @@ function Nav() {
               <img
                 className="hidden h-6 cursor-pointer  pl-6 md:flex"
                 src="src\assets\logo-dark.svg"
+                alt="logo"
               />
             ) : (
               <img
                 className="hidden h-6 cursor-pointer pl-6  md:flex"
                 src="src\assets\logo-light.svg"
+                alt="logo"
               />
             )}
           </div>
@@ -98,13 +100,13 @@ function Nav() {
             {isSideBarMobileOpen ? (
               <img
                 src="src\assets\icon-chevron-up.svg "
-                alt=""
+                alt="drop"
                 className="ml-2 mt-1 md:hidden"
               />
             ) : (
               <img
                 src="src\assets\icon-chevron-down.svg"
-                alt=""
+                alt="drop"
                 className="ml-2 mt-1 md:hidden"
               />
             )}
@@ -122,6 +124,7 @@ function Nav() {
                 className="cursor-pointer"
                 src="src\assets\icon-vertical-ellipsis.svg"
                 onClick={() => dispatch(toggleDropDownSetting())}
+                alt="..."
               />
             </div>
           )}
