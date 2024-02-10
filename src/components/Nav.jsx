@@ -10,10 +10,11 @@ import { useEffect, useRef } from "react";
 
 // IMPORTED IMAAGES
 import logoDarkMode from "../../src/assets/logo-dark.svg";
-import LogoLightMode from "../../src/assets/logo-light.svg";
-import ChervonUp from "../../src/assets/icon-chevron-up.svg";
-import ChervonDown from "../../src/assets/icon-chevron-down.svg";
-import IconVerticalEllipsis from "../../src/assets/icon-vertical-ellipsis.svg";
+import logoLightMode from "../../src/assets/logo-light.svg";
+import logoMobile from "../../src/assets/logo-mobile.svg";
+import chervonUp from "../../src/assets/icon-chevron-up.svg";
+import chervonDown from "../../src/assets/icon-chevron-down.svg";
+import iconVerticalEllipsis from "../../src/assets/icon-vertical-ellipsis.svg";
 
 function Nav() {
   const myDivRef = useRef();
@@ -60,8 +61,8 @@ function Nav() {
             }  py-[27px] transition-all duration-500 ease-in-out`}
           >
             <img
-              className="h-6 cursor-pointer pl-6 md:hidden"
-              src="src\assets\logo-mobile.svg"
+              className="h-6 cursor-pointer pl-6 md:hidden "
+              src={logoMobile}
             />
             {toggleBackground ? (
               <img
@@ -72,7 +73,7 @@ function Nav() {
             ) : (
               <img
                 className="hidden h-6 cursor-pointer pl-6  md:flex"
-                src={LogoLightMode}
+                src={logoLightMode}
                 alt="logo"
               />
             )}
@@ -105,10 +106,10 @@ function Nav() {
               {boards.length > 0 ? BoardName : "No Board Found"}
             </h1>
             {isSideBarMobileOpen ? (
-              <img src={ChervonUp} alt="drop" className="ml-2 mt-1 md:hidden" />
+              <img src={chervonUp} alt="drop" className="ml-2 mt-1 md:hidden" />
             ) : (
               <img
-                src={ChervonDown}
+                src={chervonDown}
                 alt="drop"
                 className="ml-2 mt-1 md:hidden"
               />
@@ -125,7 +126,7 @@ function Nav() {
               </button>
               <img
                 className="cursor-pointer"
-                src={IconVerticalEllipsis}
+                src={iconVerticalEllipsis}
                 onClick={() => dispatch(toggleDropDownSetting())}
                 alt="..."
               />
