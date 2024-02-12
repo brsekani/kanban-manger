@@ -152,7 +152,7 @@ function AddNewColumn() {
                   key={index}
                 >
                   <input
-                    {...register(`${index}.NewColumn`)}
+                    {...register(`columns[${index}].name`)}
                     onChange={(e) => handleinputChange(index, e.target.value)}
                     value={boardColumn.name}
                     className={`pt-0.7 h-10 w-full ${

@@ -86,21 +86,22 @@ const DataSlice = createSlice({
 
     // ADD COLUMN
     addNewColumn: (state, action) => {
-      const column = action.payload;
+      const { columns } = action.payload;
 
       // Find the current board
       const currentBoard = state.boards[state.currentBoardIndex];
 
       // Check if the current board and columns exist
       if (currentBoard && currentBoard.columns) {
-        // Create a new column object
-        const newColumn = {
-          name: column[0].NewColumn,
-          tasks: [], // Initialize tasks as an empty array instead of an object
-        };
-
-        // Push the new column to the columns array
-        currentBoard.columns.push(newColumn);
+        columns.forEach((col) => {
+          // Create a new column object
+          const newColumn = {
+            name: col.name,
+            tasks: [], // Initialize tasks as an empty array instead of an object
+          };
+          // Push the new column to the columns array
+          currentBoard.columns.push(newColumn);
+        });
       }
     },
 
