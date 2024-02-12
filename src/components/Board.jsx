@@ -11,7 +11,6 @@ import EmptyBoard from "./EmptyBoard";
 function Board() {
   const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);
   const { boards, currentBoardIndex } = useSelector((state) => state.data);
-  console.log(boards[currentBoardIndex].columns.length > 4);
 
   const dispatch = useDispatch();
   console.log(boards);
@@ -50,7 +49,7 @@ function Board() {
           )}
 
           {boards.length === 0 ||
-            boards[currentBoardIndex].columns.length === 5 || (
+            boards?.[currentBoardIndex]?.columns.length === 5 || (
               <button
                 className="bg-linear-gradient-to-b mt-12 flex h-full w-[280px] items-center justify-center rounded-md font-bold"
                 onClick={() => dispatch(openAddNewColumn())}
