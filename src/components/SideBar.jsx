@@ -49,7 +49,7 @@ function SideBar() {
         <footer className=" text-white ">
           <div
             className={`ml-6 flex h-12 w-[235px] items-center justify-center rounded-md ${
-              toggleBackground ? " bg-white" : "bg-[#20212c]"
+              toggleBackground ? " bg-[#F4F7FD]" : "bg-[#20212c]"
             }`}
           >
             {/* <div className={`ml-6 flex h-12 w-[235px] items-center justify-center rounded-md bg-[#20212C]`}> */}
