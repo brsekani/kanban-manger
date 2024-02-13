@@ -133,7 +133,7 @@ function CreateNewBoard() {
             />
             {errors.BoardName && (
               <span className="absolute right-8 top-[110px] text-[0.8125rem] font-bold text-red-600">
-                {errors.BoardName.message}
+                {errors?.BoardName?.message}
               </span>
             )}
           </div>

@@ -11,7 +11,7 @@ import BoardHeaders from "./BoardHeaders";
 
 function SideBar() {
   const { toggleBackground } = useSelector((state) => state.ui);
-  const { boards, currentBoardIndex } = useSelector((state) => state.data);
+  const { boards } = useSelector((state) => state.data);
   const numberOfBoards = boards.length;
 
   const dispatch = useDispatch();

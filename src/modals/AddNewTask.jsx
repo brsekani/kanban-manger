@@ -12,7 +12,6 @@ import { data } from "autoprefixer";
 import { addNewTask } from "../data/DataSlice";
 
 function CreateNewBoard() {
-  const [currentStatus, setCurrentStatus] = useState("Select Column");
   const [subTasks, setSubTasks] = useState([""]);
   const myDivRef = useRef(null);
 
@@ -57,15 +56,20 @@ function CreateNewBoard() {
     setSubTasks(newSubTasks);
   };
 
-  const { boards, currentBoardIndex } = useSelector((state) => state.data);
+  const { boards, currentBoardIndex, ClickedTaskName } = useSelector(
+    (state) => state.data,
+  );
   const columns = boards[currentBoardIndex].columns.map((column) => column);
 
+  const [currentStatus, setCurrentStatus] = useState(ClickedTaskName);
   // FORM
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  console.log(errors);
 
   const onSubmit = (data) => {
     const formData = {
@@ -122,14 +126,21 @@ function CreateNewBoard() {
               Title
             </label>
             <input
-              {...register("title", { required: "This field is required" })}
+              {...register("title", { required: "Required" })}
               className={`pt-0.7  m-1 mt-1 h-10 w-full rounded border border-[#828FA340] ${
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
               }  p-4 text-sm font-bold  ${
                 toggleBackground ? "text-black" : "text-white"
-              } outline-none`}
+              } outline-none ${
+                errors?.title?.message ? "border-solid border-red-600" : ""
+              } `}
               placeholder="e.g Web Development"
             />
+            {errors.title && (
+              <span className="absolute right-8 top-[90px] text-[0.8125rem] font-bold text-red-600">
+                {errors?.title?.message}
+              </span>
+            )}
           </div>
           <div>
             <label
@@ -165,16 +176,23 @@ function CreateNewBoard() {
                   key={index}
                 >
                   <input
-                    {...register(`subTasks[${index}].title`)}
+                    {...register(`subTasks[${index}].title`, {
+                      required: "Required",
+                    })}
                     className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
                       toggleBackground ? "bg-white" : "bg-[#2b2c37]"
                     } p-4 text-sm font-bold ${
                       toggleBackground ? "text-black" : "text-white"
-                    }  outline-none`}
+                    }  outline-none ${
+                      errors?.subTasks?.at(index)?.title?.message
+                        ? "border-solid border-red-600"
+                        : ""
+                    }`}
                     placeholder="e.g Todo"
                     value={input}
                     onChange={(e) => handleinputChange(index, e.target.value)}
                   />
+
                   <ImCross
                     className="cursor-pointer"
                     color="#828FA340"
