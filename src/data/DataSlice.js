@@ -117,7 +117,17 @@ const DataSlice = createSlice({
           typeof col.name === "string" && col.name.toLowerCase() === status,
       );
 
-      if (column) {
+      if (column && subTasks.at(0).title === "") {
+        const newTask = {
+          title,
+          description,
+          status,
+          subtasks: "",
+        };
+
+        // Update the tasks array of the found column with the new task
+        column.tasks.push(newTask);
+      } else if (column && subTasks.at(0).title !== "") {
         const newTask = {
           title,
           description,

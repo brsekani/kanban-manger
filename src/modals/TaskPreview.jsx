@@ -31,10 +31,6 @@ function TaskPreview() {
     .at(0)
     .tasks.at(ClickedTaskIndex);
 
-  const taskLength = boards[currentBoardIndex].columns
-    .filter((column) => column.name === ClickedTaskName)
-    .at(0).tasks.length;
-
   const status = boards[currentBoardIndex].columns.map((column) => column);
   console.log(status.map((status) => status.name).at(1));
 
@@ -145,33 +141,39 @@ function TaskPreview() {
                 toggleBackground ? "text-[#828fa3]" : "text-white"
               } `}
             >
-              Subtasks(1 of {taskLength})
+              Subtasks(1 of {task?.subtasks?.length})
             </h2>
 
-            {task.subtasks?.map((subtask, i) => (
-              <label
-                key={i}
-                className={`mt-3 flex h-9 items-center gap-3 rounded-md  ${
-                  toggleBackground ? "bg-[#F4F7FD] " : "bg-[#20212C]"
-                } scroll-container pl-3 transition duration-300 ease-in-out hover:bg-purple-500 hover:bg-opacity-25`}
-              >
-                <input
-                  className="h-4 min-w-4"
-                  type="checkbox"
-                  checked={subtask.isCompleted}
-                  // ! IMPORTANT
-                  // onChange={() => toggleSubtaskCompletion(i)}
-                />
-
-                <span
-                  className={`text-[.75rem] font-bold ${
-                    toggleBackground ? "text-[#828fa3]" : "text-white"
-                  }`}
+            {task?.subtasks === "" ? (
+              <p className="mt-1 text-[.8125rem] text-[#828fa3]">
+                No subtasks.
+              </p>
+            ) : (
+              task?.subtasks?.map?.((subtask, i) => (
+                <label
+                  key={i}
+                  className={`mt-3 flex h-9 items-center gap-3 rounded-md  ${
+                    toggleBackground ? "bg-[#F4F7FD] " : "bg-[#20212C]"
+                  } scroll-container pl-3 transition duration-300 ease-in-out hover:bg-purple-500 hover:bg-opacity-25`}
                 >
-                  {subtask.title}
-                </span>
-              </label>
-            ))}
+                  <input
+                    className="h-4 min-w-4"
+                    type="checkbox"
+                    checked={subtask.isCompleted}
+                    // ! IMPORTANT
+                    // onChange={() => toggleSubtaskCompletion(i)}
+                  />
+
+                  <span
+                    className={`text-[.75rem] font-bold ${
+                      toggleBackground ? "text-[#828fa3]" : "text-white"
+                    }`}
+                  >
+                    {subtask.title}
+                  </span>
+                </label>
+              ))
+            )}
           </div>
 
           <div className="relative flex w-full flex-col gap-0.5">
