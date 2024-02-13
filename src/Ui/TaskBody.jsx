@@ -21,7 +21,7 @@ function TaskBody({ column }) {
             key={i} // Add a unique key for each task
             className={`flex h-[110px] w-[280px] flex-col justify-center gap-1 rounded-2xl ${
               toggleBackground ? "bg-white" : "bg-[#2B2C37]"
-            }  cursor-pointer px-4 py-5 shadow-md shadow-[#364e7e1a] transition-all duration-500 ease-in-out`}
+            }  custom-grab-cursor px-4 py-5 shadow-md shadow-[#364e7e1a] transition-all duration-500 ease-in-out`}
             onClick={() =>
               dispatch(
                 openTaskPreview(),
@@ -45,7 +45,7 @@ function TaskBody({ column }) {
         ))
       ) : (
         <div
-          className={`flex h-full w-[280px] cursor-pointer rounded-md border-2 border-dashed border-gray-400 p-6 px-4 py-5 shadow-md shadow-[#364e7e1a] transition-all duration-500 ease-in-out`}
+          className={`custom-move-cursor flex h-full w-[280px] rounded-md border-2 border-dashed border-gray-400 p-6 px-4 py-5 shadow-md shadow-[#364e7e1a] transition-all duration-500 ease-in-out`}
         >
           <p></p>
         </div>

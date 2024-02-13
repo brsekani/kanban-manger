@@ -19,6 +19,14 @@
   .selectedHeader {
     background: #635fc7;
   }
+
+  .custom-grab-cursor {
+    cursor: grab;
+  }
+
+  .custom-move-cursor {
+    cursor: move;
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar {

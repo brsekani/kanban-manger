@@ -125,7 +125,9 @@ function CreateNewBoard() {
               {...register("title", { required: "This field is required" })}
               className={`pt-0.7  m-1 mt-1 h-10 w-full rounded border border-[#828FA340] ${
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-              }  p-4 text-sm font-bold text-white outline-none`}
+              }  p-4 text-sm font-bold  ${
+                toggleBackground ? "text-black" : "text-white"
+              } outline-none`}
               placeholder="e.g Web Development"
             />
           </div>
@@ -141,7 +143,9 @@ function CreateNewBoard() {
               {...register("description")}
               className={`m-1 mt-1 h-5 max-h-[112px]  min-h-[60px] w-full rounded border  border-[#828FA340] ${
                 toggleBackground ? "bg-white" : "resize-none bg-[#2b2c37] "
-              }  p-4 pt-[0.7] text-sm font-bold text-white outline-none`}
+              }  p-4 pt-[0.7] text-sm font-bold  ${
+                toggleBackground ? "text-black" : "text-white"
+              } outline-none`}
             />
           </div>
           <div className="mb-1 flex flex-col">
@@ -164,7 +168,9 @@ function CreateNewBoard() {
                     {...register(`subTasks[${index}].title`)}
                     className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
                       toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-                    } p-4 text-sm font-bold text-white outline-none`}
+                    } p-4 text-sm font-bold ${
+                      toggleBackground ? "text-black" : "text-white"
+                    }  outline-none`}
                     placeholder="e.g Todo"
                     value={input}
                     onChange={(e) => handleinputChange(index, e.target.value)}
@@ -206,7 +212,7 @@ function CreateNewBoard() {
                 >
                   <span
                     className={`text-[.8125rem] ${
-                      toggleBackground ? "text-[#828fa3]" : "text-white"
+                      toggleBackground ? "text-black" : "text-[#828fa3]"
                     } `}
                   >
                     {currentStatus}
@@ -230,7 +236,7 @@ function CreateNewBoard() {
                         toggleBackground
                           ? "hover:font-bold hover:text-black"
                           : "hover:font-bold hover:text-white"
-                      } hover:font-bold hover:text-white `}
+                      }  `}
                       onClick={(e) => {
                         setCurrentStatus(e.target.innerHTML);
                         dispatch(closeDropDownCurrentStatus());

@@ -19,7 +19,7 @@ function Board() {
     <div
       className={`flex h-full w-full overflow-x-auto ${
         toggleBackground ? "bg-[#f4f7fd]" : "bg-[#20212c]"
-      } no-scrollbar transition-all duration-500 ease-in-out`}
+      } no-scrollbar  custom-move-cursor transition-all duration-500 ease-in-out `}
     >
       {!isSideBarOpen && (
         <button className="" onClick={() => dispatch(openSideBar())}>
