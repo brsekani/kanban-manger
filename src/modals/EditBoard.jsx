@@ -99,7 +99,9 @@ function EditBoard() {
             <input
               className={`pt-0.7  m-1 mt-1 h-10 w-full rounded border border-[#828FA340] ${
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-              }  p-4 text-sm font-bold text-white outline-none`}
+              }  p-4 text-sm font-bold ${
+                toggleBackground ? "text-black" : "text-white"
+              }  outline-none`}
               placeholder="e.g Web Development"
               defaultValue={boardName}
             />
@@ -124,9 +126,10 @@ function EditBoard() {
                   <input
                     className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
                       toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-                    } p-4 text-sm font-bold text-white outline-none`}
+                    } p-4 text-sm font-bold ${
+                      toggleBackground ? "text-black" : "text-white"
+                    }  outline-none`}
                     placeholder="e.g Todo"
-                    defaultValue="Todo"
                     value={input.name}
                     onChange={(e) => handleinputChange(index, e.target.value)}
                   />

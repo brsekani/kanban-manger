@@ -219,7 +219,7 @@ function TaskPreview() {
                         toggleBackground
                           ? "hover:font-bold hover:text-black"
                           : "hover:font-bold hover:text-white"
-                      } hover:font-bold hover:text-white`}
+                      }`}
                       onClick={(e) => {
                         setCurrentStatus(e.target.innerHTML);
                         dispatch(closeDropDownCurrentStatus());
