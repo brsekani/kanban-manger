@@ -13,7 +13,7 @@ const DataSlice = createSlice({
   name: "dataSlice",
   initialState,
   reducers: {
-    // SET
+    // ACTION TO SET THE CURRENT BOARD
     setCurrectBoard: (state, action) => {
       // Assuming payload is an index
       const index = action.payload - 1;
@@ -24,13 +24,14 @@ const DataSlice = createSlice({
         state.currentBoardIndex = index;
       }
     },
+
+    // ACTION TO SET THE CLICKED TASK PREVIEW
     setClickedTaskPreview: (state, action) => {
       state.ClickedTaskName = action.payload.name;
       state.ClickedTaskIndex = action.payload.index;
     },
 
-    // DELETE
-    // 1. Delete task
+    // ACTION TO DELETE A TASK
     deleteTask: (state, action) => {
       const { ClickedTaskName, ClickedTaskIndex } = action.payload;
 
@@ -50,7 +51,7 @@ const DataSlice = createSlice({
           updatedTasks;
       }
     },
-    // 2. Delete Board
+    // ACTION TO DELETE A BOARD
     deleteBoard: (state, action) => {
       state.boards = [
         ...state.boards.slice(0, action.payload),
@@ -64,13 +65,13 @@ const DataSlice = createSlice({
       console.log(state.currentBoardIndex, action.payload);
     },
 
-    // 3. Reset Board
+    // ACTION TO RESET A BOARD
     resetBoard: (state) => {
       const currentBoard = state.boards[state.currentBoardIndex];
       currentBoard.columns = [];
     },
 
-    // CREATE NEW BOARD
+    // ACTION TO CREATE A NEW BOARD
     createBoard: (state, action) => {
       const { BoardName, columns } = action.payload.data;
 
@@ -84,7 +85,7 @@ const DataSlice = createSlice({
       state.currentBoardIndex = action.payload.currentBoard;
     },
 
-    // ADD COLUMN
+    // ACTION TO ADD A NEW COLUMN
     addNewColumn: (state, action) => {
       const { columns } = action.payload;
 
@@ -105,7 +106,7 @@ const DataSlice = createSlice({
       }
     },
 
-    //ADD NEW TASK
+    //ACTION TO ADD A NEW TASK
     addNewTask: (state, action) => {
       const { title, status, description, subTasks } = action.payload;
       const data = action.payload;
@@ -147,6 +148,7 @@ const DataSlice = createSlice({
   },
 });
 
+// Export actions and reducer from the data slice
 export const {
   setCurrectBoard,
   setClickedTaskPreview,

@@ -72,7 +72,8 @@ function CreateNewBoard() {
   console.log(errors);
 
   const onSubmit = (data) => {
-    console.log(data);
+    
+    console.log(data)
 
     const formData = {
       title: data.title,
