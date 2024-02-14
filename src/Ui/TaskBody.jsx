@@ -14,7 +14,7 @@ function TaskBody({ column }) {
   // console.log(task);
 
   return (
-    <div className="flex h-full flex-col gap-8 pb-32 ">
+    <div className="flex h-full flex-col gap-8 pb-10">
       {column?.tasks?.length > 0 ? (
         column.tasks.map((task, i) => (
           <div

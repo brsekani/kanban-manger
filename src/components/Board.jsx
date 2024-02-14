@@ -17,9 +17,9 @@ function Board() {
 
   return (
     <div
-      className={`flex h-full w-full overflow-x-auto ${
+      className={`flex h-full w-full overflow-auto ${
         toggleBackground ? "bg-[#f4f7fd]" : "bg-[#20212c]"
-      } no-scrollbar custom-move-cursor transition-all duration-500 ease-in-out `}
+      } custom-move-cursor scroll-container  transition-all duration-500 ease-in-out`}
     >
       {!isSideBarOpen && (
         <button className="" onClick={() => dispatch(openSideBar())}>
@@ -31,9 +31,9 @@ function Board() {
         </button>
       )}
 
-      <div className="h-full ">
+      <div className="h-fit">
         {/* BUG */}
-        <div className=" flex  h-full gap-8  px-8 py-6">
+        <div className=" flex h-full gap-8  px-8 py-6">
           {/* Columns */}
           {boards.length > 0 ? (
             boards[currentBoardIndex]?.columns?.map((column, i) => (
@@ -47,18 +47,18 @@ function Board() {
               <EmptyBoard />
             </div>
           )}
-
-          {boards.length === 0 ||
-            boards?.[currentBoardIndex]?.columns.length === 5 || (
-              <button
-                className="bg-linear-gradient-to-b mt-12 flex h-full w-[280px] items-center justify-center rounded-md font-bold"
-                onClick={() => dispatch(openAddNewColumn())}
-              >
-                <AddNewColumnBtn />
-              </button>
-            )}
         </div>
       </div>
+
+      {boards.length === 0 ||
+        boards?.[currentBoardIndex]?.columns.length === 5 || (
+          <button
+            className="bg-linear-gradient-to-b mt-12 flex h-full w-[280px] items-center justify-center rounded-md font-bold"
+            onClick={() => dispatch(openAddNewColumn())}
+          >
+            <AddNewColumnBtn />
+          </button>
+        )}
     </div>
   );
 }

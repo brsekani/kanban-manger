@@ -7,9 +7,9 @@ function AppLayout() {
 
   return (
     <div
-      className={`flex h-full w-full  ${
+      className={`relative flex h-full w-full ${
         toggleBackground ? "" : "bg-[#2b2c37]"
-      } transition-all duration-500 ease-in-out`}
+      } overflow-auto transition-all duration-500 ease-in-out`}
     >
       {isSideBarOpen && <SideBar />}
       <Board />
