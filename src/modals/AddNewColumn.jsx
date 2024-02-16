@@ -55,6 +55,8 @@ function AddNewColumn() {
   // FORM
   const { register, handleSubmit, formState: errors } = useForm();
 
+  console.log(errors);
+
   const onSubmit = (data) => {
     dispatch(addNewColumn(data));
     dispatch(closeAddNewColumn());
@@ -152,14 +154,20 @@ function AddNewColumn() {
                   key={index}
                 >
                   <input
-                    {...register(`columns[${index}].name`)}
+                    {...register(`columns[${index}].name`, {
+                      required: true,
+                      minLength: {
+                        value: 1,
+                        message: "Can't be empty",
+                      },
+                    })}
                     onChange={(e) => handleinputChange(index, e.target.value)}
                     value={boardColumn.name}
                     className={`pt-0.7 h-10 w-full ${
                       toggleBackground ? "bg-white" : "bg-[#2b2c37]"
                     } ${
                       toggleBackground ? "text-black" : "text-white"
-                    } rounded border border-[#828FA340] bg-[#2b2c37] p-4 text-sm font-bold outline-none focus:ring-2 focus:ring-[#635fc7]`}
+                    }   rounded border border-[#828FA340] bg-[#2b2c37] p-4 text-sm font-bold outline-none focus:ring-2 focus:ring-[#635fc7] `}
                     placeholder="e.g Todo"
                   />
                   <ImCross

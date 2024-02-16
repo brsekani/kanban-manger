@@ -177,25 +177,22 @@ function CreateNewBoard() {
                       color="#828FA340"
                     />
                   )}
-                  {/* {errors.BoardName && (
-                    <span className="text-[0.8125rem] font-bold text-red-600">
-                      {errors.columns[index]?.name?.message}
-                    </span>
-                  )} */}
                 </div>
               ))}
             </div>
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4">
-            <button
-              className={`h-10 w-full rounded-[20px] ${
-                toggleBackground ? "bg-[#625fc721]" : "bg-white"
-              }  font-bold text-[#635fc7]`}
-              onClick={(e) => addInput(e)}
-            >
-              + Add New Column
-            </button>
+            {boardColumns.length < 5 && (
+              <button
+                className={`h-10 w-full rounded-[20px] ${
+                  toggleBackground ? "bg-[#625fc721]" : "bg-white"
+                }  font-bold text-[#635fc7]`}
+                onClick={(e) => addInput(e)}
+              >
+                + Add New Column
+              </button>
+            )}
             <button
               type="submit"
               className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white"
