@@ -75,9 +75,15 @@ const DataSlice = createSlice({
     createBoard: (state, action) => {
       const { BoardName, columns } = action.payload.data;
 
+      // Map over the columns to add a task array to each column
+      const columnsWithTask = columns.map((column) => ({
+        ...column,
+        tasks: [],
+      }));
+
       const updatedBoard = [
         ...state.boards,
-        { name: BoardName, columns: columns },
+        { name: BoardName, columns: columnsWithTask },
       ];
       state.boards = updatedBoard;
 
