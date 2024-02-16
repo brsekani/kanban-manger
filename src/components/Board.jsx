@@ -31,7 +31,7 @@ function Board() {
         </button>
       )}
 
-      <div className="h-fit ">
+      <div className="h-fit">
         {/* BUG */}
         <div className="flex h-full gap-8 px-8 py-6">
           {/* Columns */}

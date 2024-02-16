@@ -14,7 +14,7 @@ function TaskBody({ column }) {
   // console.log(task);
 
   return (
-    <div className="flex h-full flex-col gap-8 pb-10">
+    <div className="flex h-full flex-col gap-8 pb-20">
       {column?.tasks?.length > 0 ? (
         column.tasks.map((task, i) => (
           <div
@@ -45,7 +45,7 @@ function TaskBody({ column }) {
         ))
       ) : (
         <div
-          className={`custom-move-cursor flex h-full w-[280px] rounded-md border-2 border-dashed border-gray-400 p-6 px-4 py-5 shadow-md shadow-[#364e7e1a] transition-all duration-500 ease-in-out`}
+          className={`custom-move-cursor flex h-[1000px] w-[280px] rounded-md border-2 border-dashed border-gray-400 p-6 px-4 py-5 shadow-md shadow-[#364e7e1a] transition-all duration-500 ease-in-out`}
         >
           <p></p>
         </div>
