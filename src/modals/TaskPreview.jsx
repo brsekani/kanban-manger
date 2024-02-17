@@ -13,6 +13,7 @@ import {
 import { color, motion } from "framer-motion";
 
 import iconVerticalEllipsis from "../../src/assets/icon-vertical-ellipsis.svg";
+import { updateSubTasks } from "../data/DataSlice";
 
 function TaskPreview() {
   const [inputs, setInputs] = useState();
@@ -53,15 +54,27 @@ function TaskPreview() {
   // stating current status
   const [currentStatus, setCurrentStatus] = useState(ClickedTaskName);
 
-  // ! IMPORTANT
-  // Function to toggle subtask completion
-  // const toggleSubtaskCompletion = (index) => {
-  //   const newTask = { ...task };
-  //   newTask.subtasks[index].isCompleted = !newTask.subtasks[index].isCompleted;
-  //   // Update the task in the state
-  //   // Assuming you have a function to dispatch an action to update the task in Redux
-  //   // dispatch(updateTask(newTask));
-  // };
+  const handleCheckboxChange = (i, checked) => {
+    console.log(i);
+    const updatedSubtasks = task.subtasks.map((subtaskItem, subtaskIndex) => {
+      if (subtaskIndex === i) {
+        return {
+          ...subtaskItem,
+          isCompleted: subtaskItem.isCompleted ? false : true,
+        };
+      }
+      return subtaskItem;
+    });
+    const updatedTask = { ...task, subtasks: updatedSubtasks };
+    console.log(updatedTask.subtasks);
+    dispatch(updateSubTasks(updatedTask.subtasks));
+    // Update the task in the state or dispatch an action to update it in Redux
+  };
+
+  const clickedTask = boards[currentBoardIndex].columns.find(
+    (column) => column.name === ClickedTaskName,
+  ).tasks[ClickedTaskIndex];
+  console.log(clickedTask.subtasks.subtasks);
 
   return (
     <div
@@ -141,7 +154,9 @@ function TaskPreview() {
                 toggleBackground ? "text-[#828fa3]" : "text-white"
               } `}
             >
-              Subtasks(1 of {task?.subtasks?.length})
+              Subtasks(
+              {task?.subtasks?.filter((sub) => sub.isCompleted === true).length}{" "}
+              of {task?.subtasks?.length})
             </h2>
 
             {task?.subtasks === "" ? (
@@ -161,7 +176,9 @@ function TaskPreview() {
                     type="checkbox"
                     checked={subtask.isCompleted}
                     // ! IMPORTANT
-                    // onChange={() => toggleSubtaskCompletion(i)}
+                    onChange={(e) => {
+                      handleCheckboxChange(i, e.target.checked);
+                    }}
                   />
 
                   <span

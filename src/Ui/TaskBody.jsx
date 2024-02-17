@@ -39,7 +39,8 @@ function TaskBody({ column }) {
               {task.title}
             </h1>
             <p className="text-xs font-bold text-[#828fa3]  ">
-              3 of {task?.subtasks?.length} subtasks
+              {task?.subtasks?.filter((sub) => sub.isCompleted === true).length}{" "}
+              of {task?.subtasks?.length} subtasks
             </p>
           </div>
         ))

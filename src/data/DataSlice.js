@@ -151,6 +151,52 @@ const DataSlice = createSlice({
         alert(`Column with status ${status} not found`);
       }
     },
+
+    // ACTION TO UPDATE CHECKED AND UNCHECKED SUBTAKS
+    updateSubTasks: (state, action) => {
+      // Find the clicked task to get the subtasks
+      const clickedTask = state.boards[state.currentBoardIndex].columns.find(
+        (column) => column.name === state.ClickedTaskName,
+      )?.tasks?.[state.ClickedTaskIndex];
+
+      if (clickedTask) {
+        // Create a new array with updated subtasks
+        const updatedSubtasks = action.payload;
+
+        // Create a new state object and return it
+        return {
+          ...state,
+          boards: state.boards.map((board, index) => {
+            if (index === state.currentBoardIndex) {
+              return {
+                ...board,
+                columns: board.columns.map((column) => {
+                  if (column.name === state.ClickedTaskName) {
+                    return {
+                      ...column,
+                      tasks: column.tasks.map((task, taskIndex) => {
+                        if (taskIndex === state.ClickedTaskIndex) {
+                          return {
+                            ...task,
+                            subtasks: updatedSubtasks,
+                          };
+                        }
+                        return task;
+                      }),
+                    };
+                  }
+                  return column;
+                }),
+              };
+            }
+            return board;
+          }),
+        };
+      }
+
+      // If clicked task is not found or not valid, return the current state
+      return state;
+    },
   },
 });
 
@@ -164,6 +210,7 @@ export const {
   createBoard,
   addNewColumn,
   addNewTask,
+  updateSubTasks,
 } = DataSlice.actions;
 
 export default DataSlice.reducer;
