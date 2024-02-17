@@ -197,6 +197,46 @@ const DataSlice = createSlice({
       // If clicked task is not found or not valid, return the current state
       return state;
     },
+
+    // ACTION TO UPDATE TASK STATUS
+    updateTaskStatus: (state, action) => {
+      const { task, statusToMoveTo } = action.payload;
+      const { currentBoardIndex, ClickedTaskName, ClickedTaskIndex } = state;
+
+      // Check if the task is already in the desired status column
+      if (statusToMoveTo === ClickedTaskName) {
+        return state; // No need to make any changes
+      }
+
+      // To remove the task from its previous column
+      const updatedColumns = state.boards[currentBoardIndex].columns.map(
+        (column) => {
+          if (column.name === ClickedTaskName) {
+            const updatedTasks = column.tasks.filter(
+              (_, i) => ClickedTaskIndex !== i,
+            );
+            return { ...column, tasks: updatedTasks };
+          }
+          return column;
+        },
+      );
+
+      // To find the index of the column to move the task to
+      const columnIndexToMoveTo = state.boards[
+        currentBoardIndex
+      ].columns.findIndex((column) => column.name === statusToMoveTo);
+
+      // To add the task to the new column
+      if (columnIndexToMoveTo !== -1) {
+        const updatedTasks = [
+          ...updatedColumns[columnIndexToMoveTo].tasks,
+          task,
+        ];
+        updatedColumns[columnIndexToMoveTo].tasks = updatedTasks;
+      }
+
+      state.boards[currentBoardIndex].columns = updatedColumns;
+    },
   },
 });
 
@@ -211,6 +251,7 @@ export const {
   addNewColumn,
   addNewTask,
   updateSubTasks,
+  updateTaskStatus,
 } = DataSlice.actions;
 
 export default DataSlice.reducer;

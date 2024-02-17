@@ -13,7 +13,7 @@ import {
 import { color, motion } from "framer-motion";
 
 import iconVerticalEllipsis from "../../src/assets/icon-vertical-ellipsis.svg";
-import { updateSubTasks } from "../data/DataSlice";
+import { updateSubTasks, updateTaskStatus } from "../data/DataSlice";
 
 function TaskPreview() {
   const [inputs, setInputs] = useState();
@@ -33,7 +33,6 @@ function TaskPreview() {
     .tasks.at(ClickedTaskIndex);
 
   const status = boards[currentBoardIndex].columns.map((column) => column);
-  console.log(status.map((status) => status.name).at(1));
 
   const handleClickOutside = (event) => {
     if (myDivRef.current && !myDivRef.current.contains(event.target)) {
@@ -74,7 +73,18 @@ function TaskPreview() {
   const clickedTask = boards[currentBoardIndex].columns.find(
     (column) => column.name === ClickedTaskName,
   ).tasks[ClickedTaskIndex];
-  console.log(clickedTask.subtasks.subtasks);
+
+  console.log(task, ClickedTaskIndex);
+
+  // Handle status
+  function handleStatus(e) {
+    setCurrentStatus(e.target.innerHTML);
+    dispatch(closeDropDownCurrentStatus());
+    dispatch(updateTaskStatus({ task, statusToMoveTo: e.target.innerHTML }));
+    dispatch(closeTaskPreview());
+    dispatch(closeDropDownEditAndDelete());
+    dispatch(closeDropDownCurrentStatus());
+  }
 
   return (
     <div
@@ -99,7 +109,7 @@ function TaskPreview() {
                   toggleBackground ? "text-black " : "text-white"
                 }  w-full  font-bold leading-6`}
               >
-                {task.title}
+                {task?.title}
               </h1>
             </div>
             <div>
@@ -144,7 +154,7 @@ function TaskPreview() {
           </div>
           <div className="">
             <p className="text-[.8125rem] text-[#828fa3]">
-              {task.description === "" ? "No description" : task.description}
+              {task?.description === "" ? "No description" : task?.description}
             </p>
           </div>
 
@@ -155,7 +165,7 @@ function TaskPreview() {
               } `}
             >
               Subtasks(
-              {task?.subtasks?.filter((sub) => sub.isCompleted === true).length}{" "}
+              {task?.subtasks?.filter((sub) => sub.isCompleted === true).length}
               of {task?.subtasks?.length})
             </h2>
 
@@ -175,7 +185,6 @@ function TaskPreview() {
                     className="h-4 min-w-4"
                     type="checkbox"
                     checked={subtask.isCompleted}
-                    // ! IMPORTANT
                     onChange={(e) => {
                       handleCheckboxChange(i, e.target.checked);
                     }}
@@ -232,17 +241,15 @@ function TaskPreview() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                 >
-                  {status.map((status) => (
+                  {status.map((status, i) => (
                     <div
+                      key={i}
                       className={`cursor-pointer text-[.8125rem] ${
                         toggleBackground
                           ? "hover:font-bold hover:text-black"
                           : "hover:font-bold hover:text-white"
                       }`}
-                      onClick={(e) => {
-                        setCurrentStatus(e.target.innerHTML);
-                        dispatch(closeDropDownCurrentStatus());
-                      }}
+                      onClick={(e) => handleStatus(e)}
                     >
                       {status.name}
                     </div>
