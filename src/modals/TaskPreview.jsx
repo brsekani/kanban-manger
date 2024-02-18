@@ -114,7 +114,7 @@ function TaskPreview() {
             </div>
             <div>
               <div onClick={() => dispatch(toggleDropDownEditAndDelete())}>
-                <img className="cursor-pointer" src={iconVerticalEllipsis} />
+                <img className="cursor-pointer " src={iconVerticalEllipsis} />
               </div>
               {DropDownEditAndDelete && (
                 <div

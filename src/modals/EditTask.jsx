@@ -7,6 +7,8 @@ import {
   toggleDropDownCurrentStatus,
 } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { editTask } from "../data/dataSlice";
 
 function EditTask() {
   const myDivRef = useRef(null);
@@ -59,14 +61,33 @@ function EditTask() {
     .filter((column) => column.name === ClickedTaskName)
     .at(0)
     .tasks.at(ClickedTaskIndex);
-  console.log(task);
 
   const status = boards[currentBoardIndex].columns.map((column) => column);
-  console.log(status.map((status) => status.name).at(1));
 
   const [subTasks, setSubTasks] = useState(task.subtasks);
   const [currentStatus, setCurrentStatus] = useState(ClickedTaskName);
-  console.log(subTasks);
+
+  // Form
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const clickedTask = boards[currentBoardIndex].columns.find(
+    (column) => column.name === ClickedTaskName,
+  )?.tasks?.[ClickedTaskIndex];
+
+  console.log(clickedTask);
+
+  const onSubmit = (data) => {
+    // Include the updated currentStatus in the data payload
+    data.currentStatus = currentStatus;
+    dispatch(editTask(data));
+    dispatch(closeEditTask());
+    console.log(data);
+    console.log(currentStatus, data.currentStatus);
+  };
 
   return (
     <div
@@ -77,6 +98,7 @@ function EditTask() {
         ref={myDivRef}
       >
         <motion.form
+          onSubmit={handleSubmit(onSubmit)}
           className={`lg:w-[calc(100vw -2em)] absolute left-1/2 top-1/2 flex w-[30vw] -translate-x-1/2 -translate-y-1/2 transform flex-col justify-center  rounded-md ${
             toggleBackground ? "bg-white" : "bg-[#2b2c37]"
           }  scroll-container max-h-[32rem] w-full max-w-[30rem] overflow-auto p-6 pt-32 `}
@@ -110,12 +132,30 @@ function EditTask() {
               Title
             </label>
             <input
+              {...register("title", {
+                required: "Title name is required",
+                minLength: {
+                  value: 3,
+                  message: "Name should be at least 3 characters",
+                },
+                maxLength: {
+                  value: 40,
+                  message: "To long",
+                },
+              })}
               className={`pt-0.7  m-1 mt-1 h-10 w-full rounded border border-[#828FA340] ${
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-              }  p-4 text-sm font-bold text-white outline-none`}
+              }  p-4 text-sm font-bold text-white outline-none ${
+                errors.title ? "border-solid border-red-600" : ""
+              }`}
               placeholder="e.g Web Development"
               defaultValue={task.title}
             />
+            {errors.title && (
+              <span className="absolute right-8 top-[110px] text-[0.8125rem] font-bold text-red-600">
+                {errors?.title?.message}
+              </span>
+            )}
           </div>
 
           <div>
@@ -127,6 +167,7 @@ function EditTask() {
               Description (optional)
             </label>
             <textarea
+              {...register("description")}
               className={`m-1 mt-1 h-5 max-h-[112px]  min-h-[80px] w-full resize-none rounded  border border-[#828FA340] ${
                 toggleBackground ? "bg-white" : "bg-[#2b2c37]"
               }  scroll-container p-2 pt-[0.7] text-sm font-bold text-white outline-none`}
@@ -153,9 +194,16 @@ function EditTask() {
                     key={index}
                   >
                     <input
+                      {...register(`subTasks[${index}].title`, {
+                        required: "Required",
+                      })}
                       className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
                         toggleBackground ? "bg-white" : "bg-[#2b2c37]"
-                      }  m-[2px] p-4 text-sm font-bold text-white outline-none focus:ring-2 focus:ring-[#635fc7]`}
+                      }  m-[2px] p-4 text-sm font-bold text-white outline-none focus:ring-2 focus:ring-[#635fc7] ${
+                        errors?.subTasks?.at(index)?.title?.message
+                          ? "border-solid border-red-600"
+                          : ""
+                      }`}
                       placeholder="e.g Todo"
                       value={input.title}
                       onChange={(e) => handleinputChange(index, e.target.value)}
@@ -223,8 +271,9 @@ function EditTask() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                   >
-                    {status.map((status) => (
+                    {status.map((status, i) => (
                       <div
+                        key={i}
                         className={`cursor-pointer text-[.8125rem] ${
                           toggleBackground
                             ? "hover:font-bold hover:text-black"
@@ -240,9 +289,18 @@ function EditTask() {
                     ))}
                   </motion.div>
                 )}
+                {/* Hidden input for currentStatus */}
+                <input
+                  type="hidden"
+                  {...register("currentStatus")}
+                  value={currentStatus}
+                />
               </div>
             </div>
-            <button className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white">
+            <button
+              type="submit"
+              className="h-10 w-full rounded-[20px] bg-[#635fc7] font-bold text-white"
+            >
               Save Changes
             </button>
           </div>

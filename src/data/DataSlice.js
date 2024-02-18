@@ -237,6 +237,55 @@ const DataSlice = createSlice({
 
       state.boards[currentBoardIndex].columns = updatedColumns;
     },
+
+    // ACTIVE TO EDIT TASK AND STATUS TOO
+    editTask: (state, action) => {
+      const { title, currentStatus, description, subTasks } = action.payload;
+
+      const { ClickedTaskIndex, currentBoardIndex } = state;
+
+      if (ClickedTaskIndex !== -1) {
+        const clickedColumn =
+          state.boards[currentBoardIndex].columns[ClickedTaskIndex];
+
+        if (!clickedColumn) {
+          return;
+        }
+
+        const clickedTask = clickedColumn.tasks[ClickedTaskIndex];
+
+        // If the currentStatus is the same as clickedTask.status, return
+        if (currentStatus === clickedTask.status) {
+          return;
+        }
+
+        // Update the properties of the clicked task with the new values
+        clickedTask.description = description;
+        clickedTask.subtasks = subTasks;
+        clickedTask.title = title;
+
+        // Remove the edited task from its previous status column
+        const previousStatusColumn = state.boards[
+          currentBoardIndex
+        ].columns.find((column) => column.name === clickedTask.status);
+
+        if (previousStatusColumn) {
+          previousStatusColumn.tasks = previousStatusColumn.tasks.filter(
+            (task) => task !== clickedTask,
+          );
+        }
+
+        // Find the column corresponding to the currentStatus
+        const currentStatusColumn = state.boards[
+          currentBoardIndex
+        ].columns.find((column) => column.name === currentStatus);
+
+        // Push the edited task to the task list of the currentStatus column
+        if (currentStatusColumn) {
+          currentStatusColumn.tasks.push(clickedTask);
+        }
+      }
+    },
   },
 });
 
@@ -252,6 +301,7 @@ export const {
   addNewTask,
   updateSubTasks,
   updateTaskStatus,
+  editTask,
 } = DataSlice.actions;
 
 export default DataSlice.reducer;
