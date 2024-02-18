@@ -8,7 +8,7 @@ import {
 } from "../Ui/UiSlice";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { editTask } from "../data/dataSlice";
+import { editTask } from "../data/DataSlice";
 
 function EditTask() {
   const myDivRef = useRef(null);
@@ -200,10 +200,12 @@ function EditTask() {
                       className={`pt-0.7 h-10 w-full rounded border border-[#828FA340] ${
                         toggleBackground ? "bg-white" : "bg-[#2b2c37]"
                       }  m-[2px] p-4 text-sm font-bold text-white outline-none focus:ring-2 focus:ring-[#635fc7] ${
-                        errors?.subTasks?.at(index)?.title?.message
+                        errors?.subTasks?.at(index)?.title?.message &&
+                        errors.subTasks[index].title.message.length > 0
                           ? "border-solid border-red-600"
                           : ""
-                      }`}
+                      }
+                      `}
                       placeholder="e.g Todo"
                       value={input.title}
                       onChange={(e) => handleinputChange(index, e.target.value)}
