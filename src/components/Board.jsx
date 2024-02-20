@@ -38,7 +38,7 @@ function Board() {
           {boards.length > 0 ? (
             boards[currentBoardIndex]?.columns?.map((column, i) => (
               <div className="" key={i}>
-                <TaskHeader column={column} />
+                <TaskHeader column={column} i={i} />
                 <TaskBody column={column} />
               </div>
             ))
