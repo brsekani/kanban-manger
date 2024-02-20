@@ -5,7 +5,7 @@ function EmptyBoard() {
   const dispatch = useDispatch();
 
   return (
-    <div className="m-auto flex flex-col items-center justify-center gap-2 p-6 text-center">
+    <div className="m-auto flex flex-col items-center justify-center gap-2 p-6 text-center font-bold">
       <p className="text-white">
         This board is empty. Create a new column to get started.
       </p>
