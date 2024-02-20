@@ -33,8 +33,13 @@ function Board() {
       <div className="h-fit">
         {/* BUG */}
         <div className="flex h-full gap-8 px-8 py-6">
-          {/* Columns */}
-          {boards.length > 0 ? (
+          {boards[currentBoardIndex]?.columns?.map((column, i) => (
+            <div className="" key={i}>
+              <TaskHeader column={column} i={i} />
+              <TaskBody column={column} />
+            </div>
+          ))}
+          {/* {boards.length > 0 ? (
             boards[currentBoardIndex]?.columns?.map((column, i) => (
               <div className="" key={i}>
                 <TaskHeader column={column} i={i} />
@@ -45,7 +50,7 @@ function Board() {
             <div className="">
               <EmptyBoard />
             </div>
-          )}
+          )} */}
         </div>
       </div>
 

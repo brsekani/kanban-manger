@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 import Board from "./components/Board";
 import SideBar from "./components/SideBar";
+import EmptyBoard from "./components/EmptyBoard";
 
 function AppLayout() {
   const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);
+  const { boards } = useSelector((state) => state.data);
 
   return (
     <div
@@ -12,7 +14,7 @@ function AppLayout() {
       } overflow-auto transition-all duration-500 ease-in-out`}
     >
       {isSideBarOpen && <SideBar />}
-      <Board />
+      {boards.length > 0 ? <Board /> : <EmptyBoard />}
     </div>
   );
 }

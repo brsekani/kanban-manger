@@ -78,15 +78,11 @@ function EditTask() {
     (column) => column.name === ClickedTaskName,
   )?.tasks?.[ClickedTaskIndex];
 
-  console.log(clickedTask);
-
   const onSubmit = (data) => {
     // Include the updated currentStatus in the data payload
     data.currentStatus = currentStatus;
     dispatch(editTask(data));
     dispatch(closeEditTask());
-    console.log(data);
-    console.log(currentStatus, data.currentStatus);
   };
 
   return (

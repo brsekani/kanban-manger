@@ -70,8 +70,6 @@ function CreateNewBoard() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-
     const formData = {
       title: data.title,
       description: data.description,
@@ -79,7 +77,6 @@ function CreateNewBoard() {
       status: currentStatus.toLocaleLowerCase(),
     };
 
-    console.log(formData);
     dispatch(addNewTask(formData));
     dispatch(closeCreateNewTask());
     dispatch(closeDropDownCurrentStatus());

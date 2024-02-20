@@ -55,12 +55,9 @@ function AddNewColumn() {
   // FORM
   const { register, handleSubmit, formState: errors } = useForm();
 
-  console.log(errors);
-
   const onSubmit = (data) => {
     dispatch(addNewColumn(data));
     dispatch(closeAddNewColumn());
-    console.log(data);
   };
 
   return (

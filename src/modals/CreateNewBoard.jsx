@@ -55,13 +55,11 @@ function CreateNewBoard() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  console.log();
 
   // Setting dispatch of current board to the new board
   const currentBoard = boards.length;
 
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(
       createBoard({ data: data, currentBoard }),
       dispatch(closeCreateNewBoard()),
