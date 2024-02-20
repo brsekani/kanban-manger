@@ -51,10 +51,7 @@ function EditBoard() {
 
   const boardName = boards[currentBoardIndex].name;
 
-  console.log(boardName);
-
   const columns = boards[currentBoardIndex].columns;
-  console.log(columns);
 
   const [inputs, setInputs] = useState(columns);
   return (

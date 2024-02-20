@@ -54,7 +54,6 @@ function TaskPreview() {
   const [currentStatus, setCurrentStatus] = useState(ClickedTaskName);
 
   const handleCheckboxChange = (i, checked) => {
-    console.log(i);
     const updatedSubtasks = task.subtasks.map((subtaskItem, subtaskIndex) => {
       if (subtaskIndex === i) {
         return {
@@ -65,7 +64,7 @@ function TaskPreview() {
       return subtaskItem;
     });
     const updatedTask = { ...task, subtasks: updatedSubtasks };
-    console.log(updatedTask.subtasks);
+
     dispatch(updateSubTasks(updatedTask.subtasks));
     // Update the task in the state or dispatch an action to update it in Redux
   };
@@ -73,8 +72,6 @@ function TaskPreview() {
   const clickedTask = boards[currentBoardIndex].columns.find(
     (column) => column.name === ClickedTaskName,
   ).tasks[ClickedTaskIndex];
-
-  console.log(task, ClickedTaskIndex);
 
   // Handle status
   function handleStatus(e) {

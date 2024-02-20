@@ -7,11 +7,7 @@ function TaskBody({ column }) {
 
   const dispatch = useDispatch();
 
-  // const task = data.boards[0].columns.map((column) =>
-  //   column.tasks.map((task) => task),
-  // );
 
-  // console.log(task);
 
   return (
     <div className="flex h-full flex-col gap-8 pb-20">

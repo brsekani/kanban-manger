@@ -62,7 +62,6 @@ const DataSlice = createSlice({
         state.currentBoardIndex >= state.boards.length
           ? state.boards.length - 1
           : state.currentBoardIndex;
-      console.log(state.currentBoardIndex, action.payload);
     },
 
     // ACTION TO RESET A BOARD

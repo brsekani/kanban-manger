@@ -36,8 +36,6 @@ function DeleteTask() {
   const { boards, currentBoardIndex, ClickedTaskName, ClickedTaskIndex } =
     useSelector((state) => state.data);
 
-  console.log(currentBoardIndex, ClickedTaskName, ClickedTaskIndex);
-
   // const task = boards[currentBoardIndex].columns
   //   .filter((column) => column.name === ClickedTaskName)
   //   .at(0)

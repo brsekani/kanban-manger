@@ -13,7 +13,6 @@ function Board() {
   const { boards, currentBoardIndex } = useSelector((state) => state.data);
 
   const dispatch = useDispatch();
-  console.log(boards);
 
   return (
     <div
