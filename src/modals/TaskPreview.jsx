@@ -83,6 +83,13 @@ function TaskPreview() {
     dispatch(closeDropDownCurrentStatus());
   }
 
+  // checked subtask num and Allsubtask num
+  const checkedSubtasks = task?.subtasks?.filter(
+    (sub) => sub.isCompleted === true,
+  ).length;
+
+  const AllSubtask = task?.subtasks?.length;
+
   return (
     <div
       className={`fixed left-0 top-0 z-[9999] flex h-full w-full items-center justify-center overflow-hidden bg-[rgba(0,0,0,.486)] `}
@@ -161,9 +168,8 @@ function TaskPreview() {
                 toggleBackground ? "text-[#828fa3]" : "text-white"
               } `}
             >
-              Subtasks(
-              {task?.subtasks?.filter((sub) => sub.isCompleted === true).length}
-              of {task?.subtasks?.length})
+              Subtasks(<span>{checkedSubtasks}</span> of
+              <span> {AllSubtask}</span> )
             </h2>
 
             {task?.subtasks === "" ? (
