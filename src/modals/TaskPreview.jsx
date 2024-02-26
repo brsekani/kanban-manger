@@ -16,7 +16,6 @@ import iconVerticalEllipsis from "../../src/assets/icon-vertical-ellipsis.svg";
 import { updateSubTasks, updateTaskStatus } from "../data/DataSlice";
 
 function TaskPreview() {
-  const [inputs, setInputs] = useState();
   const myDivRef = useRef(null);
 
   const dispatch = useDispatch();

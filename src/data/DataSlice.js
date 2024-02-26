@@ -1,6 +1,7 @@
 // dataSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import data from "../data/data.json";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   boards: data.boards,
@@ -13,6 +14,19 @@ const DataSlice = createSlice({
   name: "dataSlice",
   initialState,
   reducers: {
+    // Add unique IDs for columns and task
+    initializeBoard: (state, action) => {
+      state.boards.forEach((board) => {
+        board.id = uuidv4(); // Unique ID for the board
+        board.columns.forEach((column) => {
+          column.id = uuidv4(); // Unique ID for the board
+          column.tasks.forEach((task) => {
+            task.id = uuidv4(); // Unique ID fo the board
+          });
+        });
+      });
+    },
+
     // ACTION TO SET THE CURRENT BOARD
     setCurrectBoard: (state, action) => {
       // Assuming payload is an index
@@ -290,6 +304,7 @@ const DataSlice = createSlice({
 
 // Export actions and reducer from the data slice
 export const {
+  initializeBoard,
   setCurrectBoard,
   setClickedTaskPreview,
   deleteTask,

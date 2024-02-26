@@ -14,6 +14,8 @@ function Board() {
 
   const dispatch = useDispatch();
 
+  console.log(boards);
+
   return (
     <div
       className={`flex h-full w-full overflow-auto ${

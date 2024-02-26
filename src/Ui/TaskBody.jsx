@@ -3,17 +3,16 @@ import { openTaskPreview } from "./UiSlice";
 import { setClickedTaskPreview } from "../data/DataSlice";
 
 function TaskBody({ column }) {
-  const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);
+  const { toggleBackground } = useSelector((state) => state.ui);
 
   const dispatch = useDispatch();
-
-
 
   return (
     <div className="flex h-full flex-col gap-8 pb-20">
       {column?.tasks?.length > 0 ? (
         column.tasks.map((task, i) => (
           <div
+            draggable={true}
             key={i} // Add a unique key for each task
             className={`flex h-[110px] w-[280px] flex-col justify-center gap-1 rounded-2xl ${
               toggleBackground ? "bg-white" : "bg-[#2B2C37]"
