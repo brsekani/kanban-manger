@@ -28,7 +28,7 @@ const DataSlice = createSlice({
     },
 
     // ACTION TO SET THE CURRENT BOARD
-    setCurrectBoard: (state, action) => {
+    setCurrentBoard: (state, action) => {
       // Assuming payload is an index
       const index = action.payload - 1;
 
@@ -91,12 +91,17 @@ const DataSlice = createSlice({
       // Map over the columns to add a task array to each column
       const columnsWithTask = columns.map((column) => ({
         ...column,
+        id: uuidv4(), // Unique ID for column
         tasks: [],
       }));
 
       const updatedBoard = [
         ...state.boards,
-        { name: BoardName, columns: columnsWithTask },
+        {
+          name: BoardName,
+          id: uuidv4(), // Unique ID for board
+          columns: columnsWithTask,
+        },
       ];
       state.boards = updatedBoard;
 
@@ -117,6 +122,7 @@ const DataSlice = createSlice({
           // Create a new column object
           const newColumn = {
             name: col.name,
+            id: uuidv4(), // Unique ID for new column
             tasks: [], // Initialize tasks as an empty array instead of an object
           };
           // Push the new column to the columns array
@@ -139,6 +145,7 @@ const DataSlice = createSlice({
 
       if (column && subTasks.at(0).title === "") {
         const newTask = {
+          id: uuidv4(), // Unique ID for new task
           title,
           description,
           status,
@@ -149,6 +156,7 @@ const DataSlice = createSlice({
         column.tasks.push(newTask);
       } else if (column && subTasks.at(0).title !== "") {
         const newTask = {
+          id: uuidv4(), // Unique ID for new task
           title,
           description,
           status,
@@ -161,7 +169,7 @@ const DataSlice = createSlice({
         // Update the tasks array of the found column with the new task
         column.tasks.push(newTask);
       } else {
-        alert(`Column with status ${status} not found`);
+        throw new Error(`Column with status ${status} not found`);
       }
     },
 
@@ -305,7 +313,7 @@ const DataSlice = createSlice({
 // Export actions and reducer from the data slice
 export const {
   initializeBoard,
-  setCurrectBoard,
+  setCurrentBoard,
   setClickedTaskPreview,
   deleteTask,
   deleteBoard,

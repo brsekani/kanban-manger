@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrectBoard } from "../data/DataSlice";
+import { setCurrentBoard } from "../data/DataSlice";
 
 function BoardHeaders() {
   const { boards, currentBoardIndex } = useSelector((state) => state.data);
@@ -17,7 +17,7 @@ function BoardHeaders() {
 
   function handleCurrentBoard(id) {
     setSelectedHeader(id - 1);
-    dispatch(setCurrectBoard(id));
+    dispatch(setCurrentBoard(id));
   }
 
   return (

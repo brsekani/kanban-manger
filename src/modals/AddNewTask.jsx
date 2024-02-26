@@ -245,8 +245,9 @@ function CreateNewBoard() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                 >
-                  {columns.map((column) => (
+                  {columns.map((column, i) => (
                     <div
+                      key={i}
                       className={`cursor-pointer text-[.8125rem] ${
                         toggleBackground
                           ? "hover:font-bold hover:text-black"

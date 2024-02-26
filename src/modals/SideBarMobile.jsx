@@ -9,7 +9,7 @@ import {
 import { motion } from "framer-motion";
 import { IoIosSunny } from "react-icons/io";
 import { BsFillMoonStarsFill } from "react-icons/bs";
-import { setCurrectBoard } from "../data/DataSlice";
+import { setCurrentBoard } from "../data/DataSlice";
 
 function SideBarMobile() {
   const [selectedHeader, setSelectedHeader] = useState(0);
@@ -42,7 +42,7 @@ function SideBarMobile() {
 
   function handleCurrentBoard(id) {
     setSelectedHeader(id - 1);
-    dispatch(setCurrectBoard(id));
+    dispatch(setCurrentBoard(id));
   }
 
   const numberOfBoards = boards.length;
