@@ -53,7 +53,9 @@ Users should be able to:
 1.Learnt Tailwind (This is my first tailwind project...)
 2.Learnt Redux Toolkit.
 3.Learnt Framer Motion for the animation (This is my Framer Motion project...)
-4.how to create a modal.
+4.Learnt how to create a modal.
+5.Learnt how to use drag and drag and update it on redux toolkit
+6.Learnt how to generate a random number so i can use it as an ID for Board, task and column
 
 ### Continued development
 
