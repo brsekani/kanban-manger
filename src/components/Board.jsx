@@ -7,6 +7,8 @@ import TaskHeader from "../Ui/TaskHeader";
 import TaskBody from "../Ui/TaskBody";
 import AddNewColumnBtn from "../Ui/AddNewColumnBtn";
 import EmptyBoard from "./EmptyBoard";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { dragTask } from "../data/DataSlice";
 
 function Board() {
   const { isSideBarOpen, toggleBackground } = useSelector((state) => state.ui);
@@ -14,7 +16,16 @@ function Board() {
 
   const dispatch = useDispatch();
 
-  console.log(boards);
+  const onDragEnd = (result) => {
+    const { source, destination, draggableId } = result;
+    if (!destination) return;
+    if (
+      destination.droppableId !== source.droppableId ||
+      destination.index !== source.index
+    ) {
+      dispatch(dragTask({ source, destination, draggableId }));
+    }
+  };
 
   return (
     <div
@@ -32,29 +43,26 @@ function Board() {
         </button>
       )}
 
-      <div className="h-fit">
-        {/* BUG */}
-        <div className="flex h-full gap-8 px-8 py-6">
-          {boards[currentBoardIndex]?.columns?.map((column, i) => (
-            <div className="" key={i}>
-              <TaskHeader column={column} i={i} />
-              <TaskBody column={column} />
-            </div>
-          ))}
-          {/* {boards.length > 0 ? (
-            boards[currentBoardIndex]?.columns?.map((column, i) => (
-              <div className="" key={i}>
-                <TaskHeader column={column} i={i} />
-                <TaskBody column={column} />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="h-fit">
+          <div className="flex h-full gap-8 px-8 py-6">
+            {boards[currentBoardIndex]?.columns?.map((column, index) => (
+              <div className="" key={column.id}>
+                <TaskHeader column={column} i={index} />
+
+                <Droppable droppableId={column.id.toString()} index={index}>
+                  {(provided) => (
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                      <TaskBody column={column} />
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
               </div>
-            ))
-          ) : (
-            <div className="">
-              <EmptyBoard />
-            </div>
-          )} */}
+            ))}
+          </div>
         </div>
-      </div>
+      </DragDropContext>
 
       {boards.length === 0 ||
         boards?.[currentBoardIndex]?.columns.length === 5 || (

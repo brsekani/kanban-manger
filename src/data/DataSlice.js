@@ -1,7 +1,6 @@
 // dataSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import data from "../data/data.json";
-import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   boards: data.boards,
@@ -10,18 +9,26 @@ const initialState = {
   ClickedTaskIndex: 0,
 };
 
+// Function to generate numeric IDs
+const generateNumericId = () => {
+  // Generate a random number and convert it to a string
+  const randomNumber = Math.floor(Math.random() * 1000000); // Adjust range as needed
+  const numericId = randomNumber.toString();
+  return numericId;
+};
+
 const DataSlice = createSlice({
   name: "dataSlice",
   initialState,
   reducers: {
     // Add unique IDs for columns and task
-    initializeBoard: (state, action) => {
+    initializeBoard: (state) => {
       state.boards.forEach((board) => {
-        board.id = uuidv4(); // Unique ID for the board
+        board.id = generateNumericId(); // Unique ID for the board
         board.columns.forEach((column) => {
-          column.id = uuidv4(); // Unique ID for the board
+          column.id = generateNumericId(); // Unique ID for the board
           column.tasks.forEach((task) => {
-            task.id = uuidv4(); // Unique ID fo the board
+            task.id = generateNumericId(); // Unique ID fo the board
           });
         });
       });
@@ -91,7 +98,7 @@ const DataSlice = createSlice({
       // Map over the columns to add a task array to each column
       const columnsWithTask = columns.map((column) => ({
         ...column,
-        id: uuidv4(), // Unique ID for column
+        id: generateNumericId(), // Unique ID for column
         tasks: [],
       }));
 
@@ -99,7 +106,7 @@ const DataSlice = createSlice({
         ...state.boards,
         {
           name: BoardName,
-          id: uuidv4(), // Unique ID for board
+          id: generateNumericId(), // Unique ID for board
           columns: columnsWithTask,
         },
       ];
@@ -122,7 +129,7 @@ const DataSlice = createSlice({
           // Create a new column object
           const newColumn = {
             name: col.name,
-            id: uuidv4(), // Unique ID for new column
+            id: generateNumericId(), // Unique ID for new column
             tasks: [], // Initialize tasks as an empty array instead of an object
           };
           // Push the new column to the columns array
@@ -145,7 +152,7 @@ const DataSlice = createSlice({
 
       if (column && subTasks.at(0).title === "") {
         const newTask = {
-          id: uuidv4(), // Unique ID for new task
+          id: generateNumericId(), // Unique ID for new task
           title,
           description,
           status,
@@ -156,7 +163,7 @@ const DataSlice = createSlice({
         column.tasks.push(newTask);
       } else if (column && subTasks.at(0).title !== "") {
         const newTask = {
-          id: uuidv4(), // Unique ID for new task
+          id: generateNumericId(), // Unique ID for new task
           title,
           description,
           status,
@@ -307,6 +314,30 @@ const DataSlice = createSlice({
         }
       }
     },
+
+    // ACTION TO DRAG TASK TO ANOTHER COLUMN AND SAVE
+    dragTask: (state, action) => {
+      const { source, destination, draggableId } = action.payload;
+
+      // Retrieve the task being dragged
+      const draggedTasks = state.boards
+        .at(state.currentBoardIndex)
+        .columns.find((column) => column.id === source.droppableId).tasks;
+
+      // Find the index of the task within the source column's tasks array
+      const taskToBeMovedIndex = draggedTasks.findIndex(
+        (task) => task.id === draggableId,
+      );
+
+      // Remove the task from the source column
+      const [removedTask] = draggedTasks.splice(taskToBeMovedIndex, 1);
+
+      // Insert the removed task into the destination column at the specified index
+      state.boards
+        .at(state.currentBoardIndex)
+        .columns.find((column) => column.id === destination.droppableId)
+        .tasks.splice(destination.index, 0, removedTask);
+    },
   },
 });
 
@@ -324,6 +355,7 @@ export const {
   updateSubTasks,
   updateTaskStatus,
   editTask,
+  dragTask,
 } = DataSlice.actions;
 
 export default DataSlice.reducer;
